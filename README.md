@@ -1,1 +1,0 @@
-# jay_project
