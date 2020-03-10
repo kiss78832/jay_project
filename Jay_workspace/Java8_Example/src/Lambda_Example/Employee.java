@@ -8,7 +8,11 @@ public class Employee {
 	public Employee() {
 		super();
 	}
-
+	
+	public Employee(Integer age) {
+		this.age = age;
+	}
+	
 	public Employee(String name, Integer age, Integer salary) {
 		super();
 		this.name = name;
