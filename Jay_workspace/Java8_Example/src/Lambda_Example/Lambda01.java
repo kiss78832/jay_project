@@ -17,7 +17,7 @@ import org.junit.Test;
  * 				void accept(T t);
  * 
  * 			Supplier<T> :ㄑ倒ざ
- * 				T git();
+ * 				T get();
  * 
  * 			Function<T,R>:ㄧ计ざ
  * 				R apply(T t);
@@ -69,7 +69,7 @@ public class Lambda01 {
 	public void Test02() {
 		/*
 		 * Τ把计Τ
-		 * Function<T,R>:ㄧ计ざ  よ猭 :T git();
+		 * Supplier<T>:ㄧ计ざ  よ猭 :T get();
 		 * 
 		 * 瑈祘:getNumList(10,() -> (int)(Math.random() * 100)) 肚把计10秈龟Supplier getNumList肚List
 		 * 	       ┮ノList钡癬ㄓノforeachㄓ

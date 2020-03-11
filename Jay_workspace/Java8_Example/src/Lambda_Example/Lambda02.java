@@ -28,6 +28,11 @@ public class Lambda02 {
 	 * 注意:
 	 *     1.Lambda體中調用方法的參數與返回值類型，要與函數式介面中抽象方法的函數列表和返回值類型保持一致。
 	 *     2.需要調用的建構子的參數列表要與Function<T, R>一致。
+	 *     3.A::B這兩個一定要有關聯
+	 *     		a.Employee::getAge->(Employee有getAge())
+	 *     		b.Integer::compare->(Integer有compare())
+	 *     		c.System.out::println->(System內有out ; out是PrintStream類別內有println()方法)
+	 *     		d.(重點)A::B 這兩個一定可以A.B()，也就是一定是前者的方法或常數。
 	 */
 	@Test
 	public void Test01() {
