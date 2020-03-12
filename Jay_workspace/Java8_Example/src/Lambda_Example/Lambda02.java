@@ -15,17 +15,17 @@ public class Lambda02 {
 	/*
 	 * 方法引用: 若Lambda體中的內容已經實現了，我們可以使用"方法引用"(可以理解為方法引用是Lambda表達式的另一種表現形式)
 	 * 
-	 * 主要有三種語法格式: 
-	 *        (1). 物件:實體方法名
+	 *	 主要有三種語法格式: 
+	 *        (1).物件:實體方法名
 	 *        
 	 *        (2). 類別:靜態方法名
 	 *  
 	 *  	  (3). 類別:實體方法名
 	 *  
-	 * 建構子引用格式: 
+	 * 	建構子引用格式: 
 	 *  	  (1). ClassName::new
 	 *  
-	 * 注意:
+	 * 	注意:
 	 *     1.Lambda體中調用方法的參數與返回值類型，要與函數式介面中抽象方法的函數列表和返回值類型保持一致。
 	 *     2.需要調用的建構子的參數列表要與Function<T, R>一致。
 	 *     3.A::B這兩個一定要有關聯
@@ -37,9 +37,9 @@ public class Lambda02 {
 	@Test
 	public void Test01() {
 		/*
-		 * 物件::實體方法名
-		 * void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。
-		 * 方法引用的右側如果是方法就不用加()。
+		 * 	物件::實體方法名
+		 *  void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。
+		 * 	方法引用的右側如果是方法就不用加()。
 		 */
 		PrintStream ps1 = System.out;
 		Consumer<String> con = (x)->ps1.println(x);
@@ -56,8 +56,8 @@ public class Lambda02 {
 	@Test
 	public void Test02() {
 		/*
-		 * 物件::實體方法名
-		 * void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。 
+		 * 	物件::實體方法名
+		 *  void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。 
 		 */
 		Employee emp = new Employee();
 		Supplier<String> sup = () -> emp.getName();
@@ -73,8 +73,8 @@ public class Lambda02 {
 	@Test
 	public void Test03() {
 		/*
-		 * 類別::靜態方法名 
-		 * Integer : public static int compare(int x, int y)
+		 *	 類別::靜態方法名 
+		 *  Integer : public static int compare(int x, int y)
 		 */
 		
 		Comparator<Integer> com = (x,y) -> Integer.compare(10, 9);
@@ -85,8 +85,8 @@ public class Lambda02 {
 	@Test
 	public void Test04() {
 		/*
-		 * 類別::實體方法名 
-		 * Integer : public static int compare(int x, int y)
+		 * 	類別::實體方法名 
+		 *  Integer : public static int compare(int x, int y)
 		 * 
 		 * 規範:(x,y) -> x.equals(y) 『(x,y)-> x一定要是調用者，y一定要是方法內參數』，才能使用方法引用。
 		 */
@@ -114,14 +114,14 @@ public class Lambda02 {
 	public void Test06() {
 		Function<Integer,Employee> fun = (x) -> new Employee(x);
 		
-		//思考一下這邊調用是Employee的哪個建構子?是幾個參數的? 
-		//Ans:取決於public interface Function<T, R>裡面是一個參數，所以是取Employee的一個參數建構子。
+		//	思考一下這邊調用是Employee的哪個建構子?是幾個參數的? 
+		//	Ans:取決於public interface Function<T, R>裡面是一個參數，所以是取Employee的一個參數建構子。
 		Function<Integer,Employee> fun2 = Employee::new;
 		Employee emp = fun2.apply(101);
 		System.out.println(emp);
 		
-		//思考一下下方程式為何編譯不會過? 因為Employee建構子沒有兩個參數的建構子。注意:<Integer,Integer,Employee>:前面兩個是參數，後面是回傳值。BiFunction<T, U, R>
-		//BiFunction<Integer,Integer,Employee> bf = Employee::new;
+		//	思考一下下方程式為何編譯不會過? 因為Employee建構子沒有兩個參數的建構子。注意:<Integer,Integer,Employee>:前面兩個是參數，後面是回傳值。BiFunction<T, U, R>
+		//	BiFunction<Integer,Integer,Employee> bf = Employee::new;
 	}
 	
 	

@@ -25,15 +25,15 @@ import org.junit.Test;
  * 			Predicate<T> :耞ēざ
  * 				boolean test(T t);
  * 
- * ㄤざ:
+ * 	ㄤざ:
  * 			BiFunction<T,U,R> 把计 :TU   :R
  *			BiConsumer<T,U> 把计 :TU  :void
- *			... (临Τ砛ざ才把计Α呼琩高)
+ *			...	(临Τ砛ざ才把计Α呼琩高)
  * 
  * Lambda オ凹 : 笷把计
  * Lambda 凹 : 笷璶磅︽弧龟よΑ嘿Lambda砰
  * 
- * */
+ */
 
 public class Lambda01 {
 	List<Employee> list = Arrays.asList(
@@ -53,9 +53,9 @@ public class Lambda01 {
 		 * Consumer よ猭  void accept(T t) 把计礚
 		 * (m) -> Τ把计璝Τ贺把计ㄤ龟ぃノ珹腹策篋┦临琌糶ゑ耕
 		 * 
-		 * 瑈祘:10000 -> accept(10000) -> Lambda凹龟Consumerざvoid accept(T t)ず甧
-		 *     眔accept(x)ずx把计 
-		 * */
+		 * 	瑈祘:10000 -> accept(10000) -> Lambda凹龟Consumerざvoid accept(T t)ず甧
+		 * 	眔accept(x)ずx把计 
+		 */
 		happy(10000,(m)->System.out.println("Consumer Test 肚癳把计:" + m + "じ"));
 	}
 	
@@ -68,10 +68,10 @@ public class Lambda01 {
 	@Test
 	public void Test02() {
 		/*
-		 * Τ把计Τ
-		 * Supplier<T>:ㄧ计ざ  よ猭 :T get();
+		 * 	Τ把计Τ
+		 *  Supplier<T>:ㄧ计ざ  よ猭 :T get();
 		 * 
-		 * 瑈祘:getNumList(10,() -> (int)(Math.random() * 100)) 肚把计10秈龟Supplier getNumList肚List
+		 * 	瑈祘:getNumList(10,() -> (int)(Math.random() * 100)) 肚把计10秈龟Supplier getNumList肚List
 		 * 	       ┮ノList钡癬ㄓノforeachㄓ
 		 *
 		 * */
@@ -82,7 +82,7 @@ public class Lambda01 {
 		}
 	}
 	
-	//惠―:玻ネ繦诀计秈list栋柑
+	//	惠―:玻ネ繦诀计秈list栋柑
 	public List<Integer> getNumList(int num, Supplier<Integer> supplier){
 		List<Integer> list = new ArrayList<>();
 			
@@ -98,8 +98,8 @@ public class Lambda01 {
 	@Test
 	public void Test03() {
 		/*
-		 * Τ把计Τ
-		 * Function<T,R>:ㄧ计ざ よ猭 :R apply(T t);
+		 *	 Τ把计Τ
+		 *   Function<T,R>:ㄧ计ざ よ猭 :R apply(T t);
 		 * */
 		String newStr = strHandler("\t\t\t\t Supplier Test    ",(str) -> str.trim());
 		System.out.println(newStr);
@@ -125,7 +125,7 @@ public class Lambda01 {
 		}
 	}
 	
-	//盢骸ì兵ン惠―﹃秈栋い
+	//	盢骸ì兵ン惠―﹃秈栋い
 	public List<String> filterStr(List<String> list,Predicate<String> predicate){
 		List<String> strList = new ArrayList<>();
 		

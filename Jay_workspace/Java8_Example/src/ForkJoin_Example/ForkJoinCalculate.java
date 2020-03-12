@@ -8,7 +8,7 @@ import java.util.concurrent.RecursiveTask;
  */
 public class ForkJoinCalculate extends RecursiveTask<Long> {
 	/*
-	 * 模擬終極密碼 ，不斷的總和除2直到猜到臨界值。
+	 * 	模擬終極密碼 ，不斷的總和除2直到猜到臨界值。
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class ForkJoinCalculate extends RecursiveTask<Long> {
 			long middle = (start + end) /2;
 			
 			ForkJoinCalculate left = new ForkJoinCalculate(start,middle);
-			left.fork(); //拆分子任務，同時壓入執行緒隊列。
+			left.fork(); //	拆分子任務，同時壓入執行緒隊列。
 			
 			ForkJoinCalculate right = new ForkJoinCalculate(start,middle);
 			right.fork(); 
