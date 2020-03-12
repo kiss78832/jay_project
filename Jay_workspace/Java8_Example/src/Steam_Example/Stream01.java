@@ -48,23 +48,23 @@ public class Stream01 {
 			);
 	
 	@Test
-	public void Test01() {
+	public void test01() {
 		/*
 		 * filter() 範例
 		 */
 		//中間操作
 		Stream<Employee> stream = list.stream()
 								  .filter((e) -> {
-									System.out.println("Stream API Test 中間操作");
+									System.out.println("Stream API test 中間操作");
 									return e.getAge() > 35;
 								  });
 		
-		//終止操作   注意:若沒有終止操作，就整個stream都不會執行，"Stream API Test 中間操作"都不會執行。
+		//終止操作   注意:若沒有終止操作，就整個stream都不會執行，"Stream API test 中間操作"都不會執行。
 		stream.forEach(System.out::println);
 	}
 	
 	@Test
-	public void Test02() {
+	public void test02() {
 		/*
 		 * limit() 範例
 		 * 找出滿足條件就不會在往下執行，可以去觀察印出"短路!"狀況，(1or2)都會中斷迭代，(3)找不到符合第三個條件就迭代到結束。 與&& || 短路運算概念類似，一邊對了就不會再去判斷。
@@ -82,7 +82,7 @@ public class Stream01 {
 	}
 	
 	@Test
-	public void Test03() {
+	public void test03() {
 		/*
 		 * skip(n) 範例
 		 */
@@ -94,7 +94,7 @@ public class Stream01 {
 	}
 	
 	@Test
-	public void Test04() {
+	public void test04() {
 		/*
 		 * distinct() 範例
 		 * hashCode()和 equals()去除重複元素。可以到Employee去掉equals、hashCode註解，就能過濾重複的。範例:測試8
@@ -106,7 +106,7 @@ public class Stream01 {
 	}
 	
 	@Test
-	public void Test05() {
+	public void test05() {
 		/*
 		 * map(Function) 範例  
 		 * 流程: 使用迭代方式，取"aaa"執行toUpperCase() -> 取"bbb"執行toUpperCase() -> 取"ccc"執行toUpperCase() ...依此類推，最後再用forEach印出。
@@ -166,7 +166,7 @@ public class Stream01 {
 	}
 	
 	@Test
-	public void Test06() {
+	public void test06() {
 		/*
 		 * sorted() 範例
 		 */
@@ -178,7 +178,7 @@ public class Stream01 {
 	}
 	
 	@Test
-	public void Test07() {
+	public void test07() {
 		/*
 		 * sorted(Scomparator com) 範例
 		 * 自己寫比較判斷式，依照年齡排序。

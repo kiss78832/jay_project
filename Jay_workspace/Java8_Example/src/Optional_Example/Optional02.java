@@ -10,7 +10,7 @@ import org.junit.Test;
 public class Optional02 {
 
 	@Test
-	public void Test01() {
+	public void test01() {
 		//	ÂÂ¼gªk½d¨Ò
 		Man man = new Man();
 		String getGodessName = getGodnessName(man);

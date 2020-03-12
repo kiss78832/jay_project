@@ -48,7 +48,7 @@ public class Lambda01 {
 			);
 	
 	@Test
-	public void Test01() {
+	public void test01() {
 		/*
 		 * Consumer よ猭  void accept(T t) 把计礚
 		 * (m) -> Τ把计璝Τ贺把计ㄤ龟ぃノ珹腹策篋┦临琌糶ゑ耕
@@ -56,7 +56,7 @@ public class Lambda01 {
 		 * 	瑈祘:10000 -> accept(10000) -> Lambda凹龟Consumerざvoid accept(T t)ず甧
 		 * 	眔accept(x)ずx把计 
 		 */
-		happy(10000,(m)->System.out.println("Consumer Test 肚癳把计:" + m + "じ"));
+		happy(10000,(m)->System.out.println("Consumer test 肚癳把计:" + m + "じ"));
 	}
 	
 	public void happy(double money , Consumer<Double> con) {
@@ -66,7 +66,7 @@ public class Lambda01 {
 	//-------------------------------------------------------------------------------------	
 	
 	@Test
-	public void Test02() {
+	public void test02() {
 		/*
 		 * 	Τ把计Τ
 		 *  Supplier<T>:ㄧ计ざ  よ猭 :T get();
@@ -96,12 +96,12 @@ public class Lambda01 {
 	//-------------------------------------------------------------------------------------		
 	
 	@Test
-	public void Test03() {
+	public void test03() {
 		/*
 		 *	 Τ把计Τ
 		 *   Function<T,R>:ㄧ计ざ よ猭 :R apply(T t);
 		 * */
-		String newStr = strHandler("\t\t\t\t Supplier Test    ",(str) -> str.trim());
+		String newStr = strHandler("\t\t\t\t Supplier test    ",(str) -> str.trim());
 		System.out.println(newStr);
 	}
 	
@@ -112,12 +112,12 @@ public class Lambda01 {
 	//-------------------------------------------------------------------------------------	
 	
 	@Test
-	public void Test04() {
+	public void test04() {
 		 /*
 		  * Predicate<T> :耞ēざ     よ猭:boolean test(T t);
 		  * 
 		  */
-		List<String> list = Arrays.asList("代刚 ","Predicate Test ","耞ēざ ","肚 boolean ");
+		List<String> list = Arrays.asList("代刚 ","Predicate test ","耞ēざ ","肚 boolean ");
 		List<String> strList = filterStr(list,(x)->x.length()>5);
 		
 		for(String str : strList) {

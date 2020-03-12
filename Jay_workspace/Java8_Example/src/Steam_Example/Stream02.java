@@ -22,7 +22,7 @@ public class Stream02 {
 	 * 查找與匹配:
 	 * 	allMatch -> 檢查是否"匹配所有元素"。 		Test01()
 	 * 	anyMatch -> 檢查是否"至少匹配一個元素"。		Test02()
-	 * 	noneMatch -> 檢查是否"沒有匹配所有元素"。	Test03()
+	 * 	noneMatch -> 檢查是否"沒有匹配所有元素"。		Test03()
 	 * 	findFirst -> 返回第一個元素。				Test04()
 	 * 	findAny -> 返回當前stream流中的任一元素。	Test05()
 	 * 	max -> 返回stream流中最大值。				Test06()
@@ -33,7 +33,7 @@ public class Stream02 {
 	 *  reduce -> 可以將stream流中元素反覆結合起來，得到一個值。 	Test09()
 	 * 
 	 * 收集:
-	 *  collect -> 將stream流轉為其他形式。接收一個collector介面的實作，用於給stream中元素做彙總的方法。   Test10()
+	 *  collect -> 將stream流轉為其他形式。接收一個collector介面的實作，用於給stream中元素做彙總的方法。   test10()
 	 *  
 	 * Collectors方法: 
 	 * 	 Collectors.averagingInt 平均 	Test11()
@@ -60,7 +60,7 @@ public class Stream02 {
 			new Employee("測試8",17,8000,Status.VOCATION)
 			);
 	@Test
-	public void Test01() {
+	public void test01() {
 		/*
 		 * boolean allMatch(Predicate<? super T> predicate) 範例
 		 */
@@ -70,7 +70,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test02() {
+	public void test02() {
 		/*
 		 * boolean anyMatch(Predicate<? super T> predicate) 範例
 		 */
@@ -80,7 +80,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test03() {
+	public void test03() {
 		/*
 		 *  boolean noneMatch(Predicate<? super T> predicate) 範例
 		 */
@@ -90,7 +90,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test04() {
+	public void test04() {
 		/*
 		 *  Optional<T> findFirst() 範例
 		 *  Optional可以降低為null的機率，如果為空有代替API方法。
@@ -102,7 +102,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test05() {
+	public void test05() {
 		/*
 		 *  Optional<T> findAny() 範例
 		 *  返回狀態是FREE的員工
@@ -124,7 +124,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test06() {
+	public void test06() {
 		/*
 		 *  Optional<T> max(Comparator<? super T> comparator) 範例
 		 */
@@ -134,7 +134,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test07() {
+	public void test07() {
 		/*
 		 *  Optional<T> min(Comparator<? super T> comparator) 範例
 		 */
@@ -144,7 +144,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test08() {
+	public void test08() {
 		/*
 		 *  long count() 範例
 		 */
@@ -154,7 +154,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test09() {
+	public void test09() {
 		/* 
 		 *  BinaryOperator<T>: BiFunction<T,T,T>塞進T,T給 " R apply(T t, U u) "; 返回R也是T值 -> reduce中的BinaryOperator<T>的T都是同型別。
 		 *  
@@ -179,7 +179,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test10() {
+	public void test10() {
 		/*
 		 *  <R, A> R collect(Collector<? super T, A, R> collector) 範例
 		 */
@@ -209,7 +209,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test11() {
+	public void test11() {
 		//總數
 		Long count = employee.stream()
 							 .collect(Collectors.counting());
@@ -253,7 +253,7 @@ public class Stream02 {
 		}
 		
 	@Test
-	public void Test12() {
+	public void test12() {
 		/*
 		 * 分組 (按照狀態分組)
 		 * groupingBy 返回類型groupingBy(classifier, toList())
@@ -265,7 +265,7 @@ public class Stream02 {
 	}
 		
 	@Test
-	public void Test13() {
+	public void test13() {
 		/*
 		 * 多級分組 (按照狀態、年齡分組)
 		 * groupingBy 返回類型groupingBy(classifier, toList())
@@ -285,7 +285,7 @@ public class Stream02 {
 	}	
 	
 	@Test
-	public void Test14() {
+	public void test14() {
 		/*
 		 * 分區 (按照薪資分區) -> 二分法
 		 * 會返回true的物件，false的物件
@@ -296,7 +296,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test15() {
+	public void test15() {
 		/*
 		 * summarizing工具 根據型態去選擇，可以算出平均、總數、最大最小值，加總...等等功能
 		 */
@@ -309,7 +309,7 @@ public class Stream02 {
 	}
 	
 	@Test
-	public void Test16() {
+	public void test16() {
 		/*
 		 * joining() 可以把物件結合
 		 * joining(["兩者中間"],["字串首"],["字串尾"])

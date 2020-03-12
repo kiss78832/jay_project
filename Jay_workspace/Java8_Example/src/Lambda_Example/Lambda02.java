@@ -16,11 +16,11 @@ public class Lambda02 {
 	 * 方法引用: 若Lambda體中的內容已經實現了，我們可以使用"方法引用"(可以理解為方法引用是Lambda表達式的另一種表現形式)
 	 * 
 	 *	 主要有三種語法格式: 
-	 *        (1).物件:實體方法名
+	 *        (1).	物件:實體方法名
 	 *        
-	 *        (2). 類別:靜態方法名
+	 *        (2). 	類別:靜態方法名
 	 *  
-	 *  	  (3). 類別:實體方法名
+	 *  	  (3). 	類別:實體方法名
 	 *  
 	 * 	建構子引用格式: 
 	 *  	  (1). ClassName::new
@@ -35,7 +35,7 @@ public class Lambda02 {
 	 *     		d.(重點)A::B 這兩個一定可以A.B()，也就是一定是前者的方法或常數。
 	 */
 	@Test
-	public void Test01() {
+	public void test01() {
 		/*
 		 * 	物件::實體方法名
 		 *  void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。
@@ -54,7 +54,7 @@ public class Lambda02 {
 	}
 	
 	@Test
-	public void Test02() {
+	public void test02() {
 		/*
 		 * 	物件::實體方法名
 		 *  void accept(T t) <-> void println(String x)  : Lambda體必須參數數量、型態，回傳值型態都一樣，才能用 ::。 
@@ -71,7 +71,7 @@ public class Lambda02 {
 	}
 	
 	@Test
-	public void Test03() {
+	public void test03() {
 		/*
 		 *	 類別::靜態方法名 
 		 *  Integer : public static int compare(int x, int y)
@@ -83,7 +83,7 @@ public class Lambda02 {
 	}
 	
 	@Test
-	public void Test04() {
+	public void test04() {
 		/*
 		 * 	類別::實體方法名 
 		 *  Integer : public static int compare(int x, int y)
@@ -97,7 +97,7 @@ public class Lambda02 {
 	}
 	
 	@Test
-	public void Test05() {
+	public void test05() {
 		/*
 		 * ClassName(類別名稱)::new
 		 * 
@@ -111,7 +111,7 @@ public class Lambda02 {
 	}
 	
 	@Test
-	public void Test06() {
+	public void test06() {
 		Function<Integer,Employee> fun = (x) -> new Employee(x);
 		
 		//	思考一下這邊調用是Employee的哪個建構子?是幾個參數的? 
