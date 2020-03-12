@@ -20,6 +20,8 @@ public class Date01 {
 	 * (2).Instant: 時間戳記(以Unix元年: 1970年1月1日00:00:00到某時間的毫秒值) 					   	test02()
 	 * (3).Duration: 計算兩個 " 時間 " 之間的區隔													test03()
 	 * (4).Period: 計算兩個 " 日期 " 之間的區隔													test04()
+	 * 
+	 *	進度:19章開始
 	 */
 	@Test
 	public void test01() {
