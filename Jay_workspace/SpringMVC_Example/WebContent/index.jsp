@@ -9,5 +9,56 @@
 <body>
 
 	<a href="helloworld">hello World</a>
+	<br>
+	
+	<a href="springmvc/testRequestMapping">@testRequestMapping</a>
+	<br>
+	
+	<!-- 預設為get請求，會導致失敗。 -->
+	<a href="springmvc/testMethod">@testMethod(限制傳輸方法失敗範例)</a>
+	<br><br>
+	
+	<form action="springmvc/testMethod" method="POST">
+		<input type="submit" value="@testMethod(限制傳輸方法成功範例)">
+	</form>
+	<br>
+	
+	<!-- age若等於0，會導致失敗，參照@RequestMapping規則 -->
+	<a href="springmvc/testParamsAnHeaders?username=jay&age=10">@Params ?後面的參數</a>
+	<br>
+	
+	<!-- (測不出來，改天測)，會導致失敗，參照@RequestMapping規則 -->
+	<a href="springmvc/testParamsAnHeaders02">@Header的網頁參數</a>
+	<br>
+	
+	<!-- Ant風格，參照@RequestMapping規則 -->
+	<a href="springmvc/antStyle/BBB/abc">@Ant風格</a>
+	
+	<br>
+	<p>-------------------REST風格簡單版Tomcat8.0以上不支援DELETE、PUT訪問，安全性問題-----------------------</p>
+	
+	<!-- REST風格 @PathVariable 占位符 -->
+	<a href="springmvc/pathVariable/jay">@PathVariable 占位符</a>
+	<br><br>
+	
+	<!-- REST風格，Get方法-->
+	<a href="springmvc/rest01/myGetMethod">@Rest Get方法</a>
+	<br><br>
+	
+	<!-- REST風格，DELETE方法 -->
+	<form action="springmvc/rest02/myDeletetMethod" method="POST">
+		<input type="hidden" name="_method" value="DELETE">
+		<input type="submit" value="@Rest Delete方法">
+	</form>
+	<br>
+	
+	<!--REST風格，Put方法 -->
+	<form action="springmvc/rest03/myPutMethod" method="POST">
+		<input type="hidden" name="_method" value="PUT">
+		<input type="submit" value="@Rest 方法">
+	</form>
+	<br><br>
+	
+
 </body>
 </html>
