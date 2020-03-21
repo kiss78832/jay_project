@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Mar 18 17:41:42 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.springframework.security\:spring-security-bom\:pom\:5.1.5.RELEASE from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: The operation was cancelled.
+@default-codelds-https\://download.oracle.com/maven/.lastUpdated=1584524502639
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1584524502643
+https\://download.oracle.com/maven/.error=Could not transfer artifact org.springframework.security\:spring-security-bom\:pom\:5.1.5.RELEASE from/to codelds (https\://download.oracle.com/maven)\: The operation was cancelled.

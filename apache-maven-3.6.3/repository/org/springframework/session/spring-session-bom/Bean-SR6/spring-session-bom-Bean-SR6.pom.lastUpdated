@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Mar 18 17:41:42 CST 2020
+http\://maven.aliyun.com/nexus/content/groups/public/.error=Could not transfer artifact org.springframework.session\:spring-session-bom\:pom\:Bean-SR6 from/to alimaven (http\://maven.aliyun.com/nexus/content/groups/public/)\: The operation was cancelled.
+@default-codelds-https\://download.oracle.com/maven/.lastUpdated=1584524502645
+@default-alimaven-http\://maven.aliyun.com/nexus/content/groups/public/.lastUpdated=1584524502648
+https\://download.oracle.com/maven/.error=Could not transfer artifact org.springframework.session\:spring-session-bom\:pom\:Bean-SR6 from/to codelds (https\://download.oracle.com/maven)\: The operation was cancelled.

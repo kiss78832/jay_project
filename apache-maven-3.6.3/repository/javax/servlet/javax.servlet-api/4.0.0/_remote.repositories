@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed Mar 18 17:23:49 CST 2020
+javax.servlet-api-4.0.0-sources.jar>alimaven=
+javax.servlet-api-4.0.0.jar>alimaven=
+javax.servlet-api-4.0.0.pom>alimaven=
