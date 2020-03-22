@@ -38,6 +38,9 @@
 	 <filter-mapping>
 	 	<filter-name>HiddenHttpMethodFilter</filter-name>
 	 	<url-pattern>/*</url-pattern>
+	 	<servlet-name>mcpMvc</servlet-name>
 	 </filter-mapping>
+	 
+
 
 </web-app>

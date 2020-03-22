@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	<p>-----------------------@RequestMapping基本用法---------------------------------</p>
 	<a href="helloworld">hello World</a>
 	<br>
 	
@@ -35,7 +36,10 @@
 	<a href="springmvc/antStyle/BBB/abc">@Ant風格</a>
 	
 	<br>
-	<p>-------------------REST風格簡單版Tomcat8.0以上不支援DELETE、PUT訪問，安全性問題-----------------------</p>
+	<p>-------------------REST風格簡單版Tomcat8.0以上不支援DELETE、PUT訪問，安全性問題-----------------------
+	<a href="https://blog.csdn.net/weixin_45165669/article/details/104617304">解決辦法參考</a>
+	</p>
+	
 	
 	<!-- REST風格 @PathVariable 占位符 -->
 	<a href="springmvc/pathVariable/jay">@PathVariable 占位符</a>
@@ -57,7 +61,44 @@
 		<input type="hidden" name="_method" value="PUT">
 		<input type="submit" value="@Rest 方法">
 	</form>
-	<br><br>
+	
+	<p>---------------------------@RequestParam範例--------------------------------</p>
+	
+	<a href="springmvc/requestParam?username=jay&age=99">Test @RequestParam</a>
+	
+	<p>---------------------------@RequestHeader範例--------------------------------</p>
+	
+	<a href="springmvc/requestHeader">Test @RequestHeader</a>
+	
+	<p>---------------------------@RequestHeader範例--------------------------------</p>
+	
+	<a href="springmvc/cookieValue">Test @CookieValue</a>
+	
+	<p>---------------------------級聯屬性，塞一個POJO當參數，範例--------------------------------</p>
+	
+	<a href="springmvc/pojoParams">Test pojoParams</a>
+	<form action="springmvc/pojoParams" method="POST">
+		User:<input type="text" name="username">
+		<br>
+		Password:<input type="password" name="password">
+		<br>
+		Email:<input type="text" name="email">
+		<br>
+		Age:<input type="text" name="age">
+		<br>
+		City:<input type="text" name="address.city">
+		<br>
+		Province:<input type="text" name="address.province">
+		<br>
+		<input type="submit" value="送出表單">
+	</form>
+	
+	<p>---------------------------@RequestHeader範例--------------------------------</p>
+	
+	<a href="springmvc/servletAPI">Test ServletAPI</a>
+	
+	
+	<br><br><br>
 	
 
 </body>
