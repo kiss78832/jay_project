@@ -8,5 +8,10 @@
 </head>
 <body>
 	<h4>Success Page ¸õ­¶¦¨¥\</h4>
+	
+	<b>¡yModelAndView¡z´ú¸Õ</b>:    ${requestScope.time}
+
+	<p>---------------------------------</p>
+	
 </body>
 </html>

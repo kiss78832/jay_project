@@ -8,6 +8,24 @@ public class User {
 	private Address address;
 	
 	
+	public User(String username,  String email, int age) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.age = age;
+	}
+	public User() {
+		super();
+	}
+	
+	public User(String username, String password, String email, int age) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.age = age;
+	}
+	
 	public Address getAddress() {
 		return address;
 	}
@@ -38,11 +56,14 @@ public class User {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", age=" + age
 				+ ", address=" + address + "]";
 	}
 
+	
+	
 	
 }

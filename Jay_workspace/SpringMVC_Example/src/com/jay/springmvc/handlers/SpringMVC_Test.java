@@ -1,5 +1,7 @@
 package com.jay.springmvc.handlers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jay.springmvc.pojo.User;
 
@@ -97,7 +100,7 @@ public class SpringMVC_Test {
 
 	/**
 	 * @PathVariable 可以映射URL中的占位符到目標方法參數中
-	 * 支持Rest風格的URL
+	 * 	支持Rest風格的URL
 	 * */
 	@RequestMapping("/pathVariable/{id}")
 	public String pathVariable(@PathVariable("id") String id) {
@@ -134,7 +137,7 @@ public class SpringMVC_Test {
 	}
 
 
-	/*********************@RequestParam範例 :請求映射參數***********************/
+	/*********************@RequestParam範例 :請求映射參數	***********************/
 
 	//defaultValue 默認值 ，required此值是否為必須 預設為true，若int改Integer就不用預設(回傳null)
 	@RequestMapping(value="/requestParam")
@@ -144,7 +147,7 @@ public class SpringMVC_Test {
 		return SUCCESS;
 	}
 
-	/*********************@RequestHeader範例 :請求映射網頁Cookie內容***********************/
+	/*********************@RequestHeader範例 :請求映射網頁Cookie內容	***********************/
 
 	@RequestMapping(value="/cookieValue")
 	public String cookieValue(@CookieValue("JSESSIONID") String jsessionId) {
@@ -152,7 +155,7 @@ public class SpringMVC_Test {
 		return SUCCESS;
 	}
 
-	/*********************@CookieValue範例 :請求映射參數***********************/
+	/*********************@CookieValue範例 :請求映射參數	***********************/
 
 	@RequestMapping(value="/requestHeader")
 	public String requestHeader(@RequestHeader(value="Accept-Language") String language) {
@@ -160,7 +163,7 @@ public class SpringMVC_Test {
 		return SUCCESS;
 	}
 	
-	/*********************POJO範例 :請求POJO參數***********************/
+	/*********************POJO範例 :請求POJO參數	***********************/
 	/*
 	 * SpringMVC 會按照請求參數名的POJO屬姓名進行自動配對。 
 	 * 自動為該對象填充屬性值。支持級聯屬性。如:address.city、address.province...等等
@@ -171,7 +174,7 @@ public class SpringMVC_Test {
 		return SUCCESS;
 	}
 	
-	/*********************Servlet原生API範例 ***********************/
+	/*********************Servlet原生API範例	 ***********************/
 	/*
 	 * 支持Servlet原生API
 	 * 1.HttpServletRequest

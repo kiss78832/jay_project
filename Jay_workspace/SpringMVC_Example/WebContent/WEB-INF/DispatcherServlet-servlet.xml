@@ -18,4 +18,24 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>	
 	</bean>
+	
+	<!-- 
+		配置視圖 BeanNameViewResolver 解析器 : 使用視圖的名字來解析視圖。
+		通過order屬性來定義視圖解析器的優先級，order值越小優先級越高，若沒有其他order的話就是看誰定義誰優先。
+	-->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="100"></property>
+	</bean>
+	
+	
+	<!--
+		a. 配置直接跳轉頁面
+		b. 可以直接相應跳轉的頁面，無須再經過Handler的方法。
+		c. 若沒有配置<mvc:annotation-driven>其他連結都會404，只有<mvc:view-controller>能起作用  (後續會在解釋)	
+	 -->
+	 <mvc:view-controller path="/success" view-name="success"/>
+	 <mvc:annotation-driven></mvc:annotation-driven>
+	 
+
+	 
 </beans>
