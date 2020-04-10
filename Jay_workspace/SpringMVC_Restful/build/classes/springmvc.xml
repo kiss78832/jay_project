@@ -29,8 +29,6 @@
 	<mvc:default-servlet-handler/>
 	
 	
-	
-	
 	<!--
 			<mvc:annotation-driven>會自動註冊三種Bean:
 				(1).RequestMappingHandlerMapping
@@ -62,9 +60,6 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	
-	
-	
-	
 	<!--	配置ConversionService	轉換器 -->
 	<bean id="conversionService"
 		  class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -78,4 +73,27 @@
 <!-- 	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven> -->
 	
 	
+	<!--	配置國際化資源文件  使用瀏覽器切換語言更改i18n	  -->
+	<bean id="messageSource"
+		  class="org.springframework.context.support.ResourceBundleMessageSource">
+		  <property name="basename" value="i18n"></property>
+	</bean>
+	<mvc:view-controller path="/i18n" view-name="i18n"/>
+	<mvc:view-controller path="/i18n2" view-name="i18n2"/>
+	
+	<!--	配置國際化資源文件  使用連結切換i18n	配置SessionLocalResolver、LocaleChanceInterceptor  -->
+	<bean id="localeResolver" 
+		  class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	</bean>
+	
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+	</mvc:interceptors>
+	
+	<!--	配置上傳功能 MultiparResolver  -->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="UTF-8"></property>
+		  <property name="maxUploadSize" value="1024000"></property>
+	</bean>
 </beans>

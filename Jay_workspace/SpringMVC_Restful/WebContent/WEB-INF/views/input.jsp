@@ -29,16 +29,19 @@
 	 <form:form action="${pageContext.request.contextPath}/emp" method="POST" modelAttribute="employee">
 		<!-- path屬性對應html表單標籤的name屬性值 -->
 		<c:if test="${employee.id == null}">
-		 	LastName: <form:input path="LastName"/>
+		 	LastName: <form:input path="lastName"/>
+		 	<form:errors path="lastName"></form:errors>
 		</c:if>
-			<c:if test="${employee.id != null}">
+		
+		<c:if test="${employee.id != null}">
 		<!-- 	對於_method不能使用再form:hidden標籤，是因為modelAttribute對應的bean中沒有_method這個屬性 -->
 			<form:hidden path="id"/>
 			<input type="hidden" name="_method" value="PUT">
 		</c:if>
 		
 		 	<br>
-		 	Email: <form:input path="Email"/>
+		 	Email: <form:input path="email"/>
+		 	<form:errors path="email"></form:errors>
 		 	<br>
 		 	
 		 	<% 
@@ -82,8 +85,13 @@
 								   	(4).ConversionService(進行格式化跟類型轉變工作，支持大部分的功能，若有自行規範可實作。)
 								   	(5).Validator(進行驗證)
 								   	(6).若有錯誤會放在BindingResult裡頭
+			測試用: 
 			 -->
-		 	Birth:<form:input path="birth"/>
+			Birth:<form:input path="birth"/>
+			<form:errors path="birth"></form:errors>
+			<br>
+			Salary:<form:input path="salary"/>
+		 	
 		 	<br>
 			<input type="submit" value="送出">
 		 	
