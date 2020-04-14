@@ -7,10 +7,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-	<!-- 配置自動掃描的package -->
+	<!--
+		 配置自動掃描的package 
+	-->
 	<context:component-scan base-package="com.jay.springRestful"></context:component-scan>
 
-	<!-- 配置試圖解析器: 如何把handler 方法返回值解析為實際的物理視圖 -->
+	<!-- 
+		配置試圖解析器: 如何把handler 方法返回值解析為實際的物理視圖 
+	-->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
@@ -31,7 +35,7 @@
 	
 	<!--
 			<mvc:annotation-driven>會自動註冊三種Bean:
-				(1).RequestMappingHandlerMapping
+				(1).RequestMappingHandlerMapping(←@RequestMapping就是靠他)
 				(2).RequestMappingHandlerAdapter
 				(3).ExceptionHandlerExceptionResolver
 				補充 :HandlerMapping 和HandlerAdapter 是相互配合工作的，HandlerMapping 用來映射，
@@ -40,13 +44,13 @@
 		針對	(2).RequestMappingHandlerAdapter講解，
 			其他	(1).RequestMappingHandlerMapping(3).ExceptionHandlerExceptionResolver一樣意思:
 					↓		↓		↓		↓		↓		↓		↓	
-		<mvc:default-servlet-handler/>、<mvc:annotation-driven>兩者都沒有配置的話:
+		<mvc:default-servlet-handler/>、<mvc:annotation-driven>"兩者都沒有配置"的話:
 			自動建立三種Bean
 				(1).HttpRequestHandlerAdapter
 				(2).SimpleControllerHandlerAdapter
 				(3).AnnotationMethodHandlerAdapter (3.2版已經淘汰的Bean)
 				
-		<mvc:default-servlet-handler/>有配置、<mvc:annotation-driven>沒有配置的話:
+		<mvc:default-servlet-handler/>有配置、<mvc:annotation-driven>沒有配置的話: (@RequestMapping會沒有作用)
 			自動建立兩種Bean
 				(1).HttpRequestHandlerAdapter
 				(2).SimpleControllerHandlerAdapter
@@ -60,7 +64,9 @@
 	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	
-	<!--	配置ConversionService	轉換器 -->
+	<!--
+		配置ConversionService	轉換器 
+	-->
 	<bean id="conversionService"
 		  class="org.springframework.context.support.ConversionServiceFactoryBean">
 			<property name="converters">
@@ -73,7 +79,9 @@
 <!-- 	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven> -->
 	
 	
-	<!--	配置國際化資源文件  使用瀏覽器切換語言更改i18n	  -->
+	<!--
+		配置國際化資源文件  使用瀏覽器切換語言更改i18n	  
+	-->
 	<bean id="messageSource"
 		  class="org.springframework.context.support.ResourceBundleMessageSource">
 		  <property name="basename" value="i18n"></property>
@@ -81,19 +89,40 @@
 	<mvc:view-controller path="/i18n" view-name="i18n"/>
 	<mvc:view-controller path="/i18n2" view-name="i18n2"/>
 	
-	<!--	配置國際化資源文件  使用連結切換i18n	配置SessionLocalResolver、LocaleChanceInterceptor  -->
+	<!--
+		配置國際化資源文件  使用連結切換i18n	配置SessionLocalResolver(解析器)、LocaleChanceInterceptor(攔截器)
+			(1).<mvc:interceptors>還可以配多個<mvc:interceptor> 
+			(2). 
+	-->
 	<bean id="localeResolver" 
 		  class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
 	</bean>
 	
 	<mvc:interceptors>
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+		
+		<!-- 自定義攔截器(位置指向FirstIntercetor.java位置) -->
+		<bean class="com.jay.interceptors.FirstInterceptor"></bean>
+		
+		<!-- 再新增一個攔截器，可以針對某頁面才起作用，這邊視針對/emps頁面才會啟動SecondIntercetor.java功能  -->
+		<mvc:interceptor>
+			<mvc:mapping path="/emps"/>       
+			<bean class="com.jay.interceptors.SecondInterceptor"></bean>
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
 	
-	<!--	配置上傳功能 MultiparResolver  -->
+	<!--
+		配置上傳功能 MultiparResolver  
+	-->
 	<bean id="multipartResolver"
 		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		  <property name="defaultEncoding" value="UTF-8"></property>
 		  <property name="maxUploadSize" value="1024000"></property>
 	</bean>
+	
+	<!--
+		配置使用 SimpleMappingExceptionResolver 來映射異常，利用xml來映射導到錯誤頁面，但感覺沒用就沒實作。
+	-->
+	
 </beans>
