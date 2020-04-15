@@ -3,6 +3,11 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
+		<!--	配置啟動Spring IOC 容器 Listener -->
+	<context-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:beans.xml</param-value>
+	</context-param>
 
 		<!-- 配置DispatcherServlet -->
 	<servlet>

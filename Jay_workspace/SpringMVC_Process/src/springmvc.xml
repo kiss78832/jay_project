@@ -7,10 +7,19 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 	<!--
-		 配置自動掃描的package 
+		 配置自動掃描的package
+		 
+		 當SpringIOC容器和SpringMVC的IOC容器，掃描的包有重複Bean會被創建兩次 :
+		 	解決辦法:
+		 		(1).使Spring的IOC容器掃描包和SpringMVC的IOC容器掃描的包沒有重複部分。
+		 		(2).使用exclue-filter(不包括) 和 include-filter(包括) 子節點來規定只能掃描的註解。
+		 		
+	<context:component-scan base-package="com.jay.springmvc">
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 	-->
-	<context:component-scan base-package="com.jay.springmvc"></context:component-scan>
-	
+		<context:component-scan base-package="com.jay.springmvc"></context:component-scan>
 	
 	<!-- 
 		配置試圖解析器: 如何把handler 方法返回值解析為實際的物理視圖 
