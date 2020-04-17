@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.junit.Test;
@@ -50,11 +51,14 @@ public class Stream01 {
 	@Test
 	public void test01() {
 		/*
-		 * filter() 範例
+		 * filter() 範例    ->  Stream<T> filter(Predicate<? super T> predicate);
+		 * Predicate 回傳boolean值，Lambda_Example有範例
+		 * 
+		 * 流程:去過濾 list(下面以"e"來取代) 這個集合，去執行Lambda右側，然後一定要返回一個boolean值，因為Predicate，中間你要做什麼都可以。
 		 */
 		//中間操作
 		Stream<Employee> stream = list.stream()
-								  .filter((e) -> {
+								    .filter((e) -> {
 									System.out.println("Stream API test 中間操作");
 									return e.getAge() > 35;
 								  });

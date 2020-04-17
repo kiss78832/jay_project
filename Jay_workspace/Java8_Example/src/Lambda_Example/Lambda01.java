@@ -55,12 +55,16 @@ public class Lambda01 {
 		 * 
 		 * 	流程:10000 -> accept(10000) -> Lambda右側實作Consumer介面下的void accept(T t)內容，
 		 * 	也可以取得到accept(x)內的x參數。 
+		 * 
+		 *  
 		 */
 		happy(10000,(m)->System.out.println("Consumer test 傳送參數:" + m + "元"));
 	}
 	
 	public void happy(double money , Consumer<Double> con) {
+		System.out.println("1");
 		con.accept(money);
+		System.out.println("2");
 	}
 	
 	//-------------------------------------------------------------------------------------	
@@ -71,8 +75,9 @@ public class Lambda01 {
 		 * 	有一個參數，並有返回值。
 		 *  Supplier<T>:函數型介面 。 方法 :T get();
 		 * 
-		 * 	流程:getNumList(10,() -> (int)(Math.random() * 100)) 傳參數10進去，實作Supplier， getNumList回傳一個List，
-		 * 	       所以用一個List接起來，在用foreach印出來。
+		 * 	流程:getNumList(10,() -> (int)(Math.random() * 100)) 傳參數10進去，實作Supplier[(int)(Math.random() * 100)]並回傳一個Integer類型， 
+		 * 		所以才能用n來接Integer n = supplier.get()，跟test01()相比的話，test01()會直接印出來，
+		 *      ，getNumList回傳一個List，所以用一個List接起來，在用foreach印出來。
 		 *
 		 * */
 		List<Integer> numList = getNumList(10,() -> (int)(Math.random() * 100));
@@ -87,7 +92,7 @@ public class Lambda01 {
 		List<Integer> list = new ArrayList<>();
 			
 			for (int i = 0; i < num; i++) {
-				Integer n = supplier.get();
+				Integer n = supplier.get();  
 				list.add(n);
 			}
 		return list;
@@ -100,6 +105,7 @@ public class Lambda01 {
 		/*
 		 *	 有一個參數，並有返回值。
 		 *   Function<T,R>:函數型介面。 方法 :R apply(T t);
+		 *   流程:把"\t\t\t\t Supplier test    "字串丟給fun.apply(str)立即去實作(str) -> str.trim()，回傳值應該就是依照(str) -> str.trim()而不是回傳Function。
 		 * */
 		String newStr = strHandler("\t\t\t\t Supplier test    ",(str) -> str.trim());
 		System.out.println(newStr);
@@ -121,6 +127,7 @@ public class Lambda01 {
 		List<String> strList = filterStr(list,(x)->x.length()>5);
 		
 		for(String str : strList) {
+			
 			System.out.print(str);
 		}
 	}
@@ -130,7 +137,9 @@ public class Lambda01 {
 		List<String> strList = new ArrayList<>();
 		
 		for(String str : list) {
+			//predicate.test(str)直接去實作x.length()>5，然後會回傳一個boolean值
 			if(predicate.test(str)) {
+				//長度大於5的才會List
 				strList.add(str);
 			}
 		}
