@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/21 ?U?? 05:43:29 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.jay.hibernate.helloworld">
+    <class name="Worker" table="WORKER">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="sequence" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        
+        
+		<!-- 	映射組成關係(要與其他類別結合，請使用Component，因為Pay類別沒有跟worker互相關聯的值[沒id]，所以可以這樣使用)，這樣只會生成一個表格。 	-->
+		<component name="pay" class="Pay">
+			<!-- 指定組成關係的組件關係 -->
+			<property name="monthlyPay" column="MONTHLY_PAY"></property>
+			<property name="yearPay" column="YEAR_PAY"></property>
+			<property name="vocationWithPay" column="VOCATION_PAY"></property>
+		</component>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/22 ?U?? 05:43:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.jay.hibernate.manyToOne_twoWay">
+    <class name="Order" table="ORDERS">
+        <id name="orderId" type="java.lang.Integer">
+            <column name="ORDER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="orderName" type="java.lang.String">
+            <column name="ORDER_NAME" />
+        </property>
+	
+		<!-- 	這個customer有ID，所以是個實體類型，不是值類型，前面有講到持久化類型有分兩種 	-->
+		<!-- 	映射多對一的關聯關係，會產生兩個表格，Order表格會新增一欄CUSTOMER_ID跟Customer表格的ID互相連結。	-->
+		<!-- 	
+				name:多對一，"多"關聯"一"那端屬性名子。(多就是order，一就是customer) private Customer [customer]<-name值;	
+				class:"一"那端的屬性對應的類別名稱。("一"方的類別名稱，就是Customer.java)
+				column:"一"那端在"多"那端，對應資料庫中的外鍵名稱。(資料庫欄位名)
+		-->
+		<many-to-one name="customer" class="Customer" column="CUSTOMER_ID"></many-to-one>
+		
+    </class>
+</hibernate-mapping>

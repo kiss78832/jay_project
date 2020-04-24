@@ -34,8 +34,33 @@
 		-->
     	<property name="hbm2ddl.auto">update</property>
     	
+    	<!--	刪除對象後，使OID設為null 	-->
+    	<property name="use_identifier_rollback">true</property>
+    	
+    	<!--	設置C3P0資料庫連線 	-->
+    	<property name="hibernate.c3p0.max_size">10</property>
+    	<property name="hibernate.c3p0.min_size">5</property>
+    	<property name="c3p0.acquire_increment">2</property> <!--	一次向資料庫拿多少連線，而不是一條一條拿 	-->
+    	<property name="c3p0.idle_test_period">2000</property>  <!--	檢測連線狀況是否被銷毀 >= timeout 就會銷毀	-->
+    	<property name="c3p0.timeout">2000</property> 
+    	<property name="c3p0.max_statements">10</property>
+    	
+    	<!--	針對Oracle是有效的	-->
+    	<!--	設置JDBC的Statment讀取數據的時候每次從資料庫中取出的紀錄條數 ，實質是調用Statement.seFetchSize()方法。[就是假設1萬條資料，可設置一次可能XX條資料，可以不要一次一萬條，好處是節省內存消耗，預設是10，建議100比較合適]	-->
+    	<property name="hibernate.jdbc.fetch_size">100</property>
+    	<!--	設定對資料庫進行批次刪除，批次更新和批次插入的時候大小設定。[設置緩衝區的意思，一般設置30] 	--> 
+    	<property name="jdbc.batch_size">30</property>
+    	
     	<!--	指定關聯的.hbm.xml文件 	-->
     	<mapping resource="com/jay/hibernate/helloworld/News.hbm.xml"/>
+    	<mapping resource="com/jay/hibernate/helloworld/Worker.hbm.xml"/>
+    	
+<!--     	<mapping resource="com/jay/hibernate/manyToOne/Customer.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/manyToOne/Order.hbm.xml"/> -->
+    	
+    	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Customer.hbm.xml"/>
+    	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Order.hbm.xml"/>
+    	
     	
     </session-factory>
 </hibernate-configuration>

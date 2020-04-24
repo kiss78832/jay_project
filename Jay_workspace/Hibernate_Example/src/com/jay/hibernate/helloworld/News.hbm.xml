@@ -3,18 +3,79 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <!-- 
-	class -> 物件 
-	table -> 資料庫table名稱
-	name -> Bean的屬性名稱
-	column -> 欄位
-	generator -> 指定主鍵生成的方式  (sequence自動排序) 	
-
+	package -> 如果加上package，那麼class就不用寫整個路徑，通常用在關聯關係的話會用上。
+		 <hibernate-mapping package="com.jay.hibernate.helloworld">
+   		 <class name="News" table="HIBERNATE_TEST">
+	<class>(物件)常用標籤屬性 :
+		(1).name:指定持久化類別映射的類別的類名。(就是指定Bean的位置，像News。)
+		(2).table:Hibernate默認持久化類別的類名作為表格名稱。(指定資料庫所映射的表格)
+		(3).dynamic-insert、dynamic-update:兩者默認都是false，一般下SQL語句，即使你更新一個欄位都會整體全部update，一旦改為"true"的話，你針對哪一欄下更新，SQL語句就會針對該欄更新，就會是動態的感覺。
+		(5).select-before-update:Hibernate02[update()]有講解範例。
+		(6).batch-size:根據OID來抓取實例時，每批抓取的實例數。
+		(7).lazy:指定是否使用延遲加載。 
+		(8).mutable:默認為"true"。設置為"true"等同所有的<property>標籤的update屬性為"false"，表示整個實例不能被更新。
+		(9).discriminator-value:指定區分不同子類的值，當使用<subclass/>標籤來定義持久化的繼承關係需要使用該標籤。
+	<id>(設置主鍵的地方，欄位不一定要叫id)標籤常用標籤屬性 :
+		(1).name:標示持久化OID的屬性名稱。
+		(2).column:設置標示所映射的表格欄位名稱。
+		(3).unsaved-value:設置該屬性，Hibernate會通過比較[持久化類的OID值和屬性值來區分當前持久化類別的物件]"是否為臨時對象"。(參考範例:Hibernate02.saveOrUpdate())
+		(4).type:設置該欄位映射的屬性類型。
+		(5).generator內的class參數
+				A.increrment(適合用在測試) -> 是"由Hibernate"以遞增的方式代理主鍵，也就是會先到該表格讀取最後一筆資料，在由讀取過來的數字+1。(若有兩個執行緒讀的話，則會發生重複的衝突。)
+				B.identity(適用:DB2、Mysql、MSSQL、Sybase) -> 要求底層資料庫把主鍵自動變成"自增主鍵值"，OID的類型只能為Long、Int、Short，不能為byte類型。
+				C.sequence(適用:DB2、Oracle) -> 利用底層資料庫提供"序列生成標示"，，OID的類型只能為Long、Int、Short，不能為byte類型。
+				D.hilo -> 由Hibernate按照一種 "high/low演算法"生成主鍵，會從資料庫獲取high值，hilo在產生ID值時，
+						     需要讀取並修改hilo_table中的hilo_column值(可以在hilo設置table、cloumn、max_lo，會自動產生一個表格專門在記ID的個數)。
+						     特點:不依賴底層資料庫，可以適用所有資料庫，不是自增、也不是序列。會先select後再update再insert，算是非常安全，不太會有線程安全。
+				E.native(屬於跨平台方式，換資料庫不會有影響) -> 會依據底層資料庫自動生成主鍵，看資料庫預設是自增、序列、還是都沒有。
+				
+				F.uuid.hex G.foreign
+	<property>標籤屬性:
+		(1).name:同上。 (2).column:同上 
+		(3).type:同上。[補充:string(Hibernate映射類型，不是Java) - java.lang.String(Java類型) - VARCHAR(標準SQL類型)]看你要選什麼都可以。
+	 	(4).not-null:若為true，表明不允許為null值。
+	 	(5).access:默認值為:[property]，使用getter/setter來訪問屬性。若設置[field]，忽略getter/setter直接通過反射訪問變數。(一般持久化類都會設getter/setter，所以用默認即可)
+	 	(6).unique:設置是否為該屬性所映射的數據列添加唯一的約束。
+	 	(7).update:指說這欄位的值是否可以被改變。設置false代表去修改時不會真正修改到，但不會出現異常。
+	 	(8).index:指定一個字串名稱，Hibernate自動建立表格時，用於該屬性所映射的數據列創建索引，從而加快數據列的查詢。
+	 	(9).length:可以設置資料庫欄位的長度。
+	 	(10).formula:派生屬性欄位(透過計算才能得到的值)。寫法:<property name="XX" formula="(SQL子查詢)"></property> 需要請查google
+		(11).scale:指定該屬性所映射數據列的小數位數，對double、float.decimal等類型數據列有效。
+		
+	映射Java的時間、日期、類型:
+		一、基本概念:
+			(1).在Java中，有兩個類別是代表時"java.util.Date"、"java.util.Calender"，此外JDBC API提供三種擴展"java.util.Date"類別的子類，
+			    1."java.sql.Date" 2."java.sql.Time" 3."java.sql.Timestamp"，1~3分別是SQL標準類型DATE、TIME、TIMESTAMP類型對應。
+			
+			(2).在標準SQL中，DATE類型表示日期，TIME類表示時間，TIMESTAMP類表示時間戳記，同時包含日期和時間訊息。
+		
+		二、如何進行映射:
+			(1).因為java.util.Date是[java.sql.Date，java.sql.Time、java.sql.Timestamp]的父類別，所以java.util.Date可以對應標準SQL類型中的DATE、TIME、TIMESTAMP。
+			(2).基於(1)點，所以設置持久化類的都設為"java.util.Date"
+			(3).如何把java.util.Date映射為DATE、TIME、TIMESTAMP?
+				★這邊的type若直接輸入[date、time、timestamp]都是屬於Hibernate類型的，注意:不是Java類型也不是標準SQL類型。
+						<property name="date_" type="timestamp">
+				            <column name="DATE_" />
+				        </property>
+			(4).結論就是在持久化對象(Bean)如果要設日期最好都用java.util.Date，你傳java.util.Date到資料庫，資料庫我丟java.sql.Date回來，兩邊是可以相容的。
+		
+		三、針對Blob、Clob來映射
+			(1).兩種寫法，範例"2"是精準映射，Blob跟Clob一樣
+				1.<property name="test" type="blob"></property>
+				
+				2.<property name="test">
+				     <column name="TEST" sql-type="blob" />
+				  </property>
+		        		
+		
+	select-before-update="true" 測試用
+	unsaved-value="1" 測試用
  -->
 <hibernate-mapping>
     <class name="com.jay.hibernate.helloworld.News" table="HIBERNATE_TEST">
-        <id name="id" type="java.lang.Integer">
+        <id name="id" type="java.lang.Integer" >
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="title" type="java.lang.String">
             <column name="TITLE" />
@@ -22,7 +83,7 @@
         <property name="author" type="java.lang.String">
             <column name="AUTHOR" />
         </property>
-        <property name="date_" type="java.sql.Date">
+        <property name="date_" type="date">
             <column name="DATE_" />
         </property>
     </class>

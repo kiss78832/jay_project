@@ -1,9 +1,13 @@
 package com.jay.hibernate.helloworld;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Hibernate 創建持久化層(Java Bean)不用繼承父類別或介面，導致持久化層能無受到汙染。(低侵入式框架)
+ * 
+ * Hibernate 把持久化類型分為兩種:
+ * 		值(value):"沒有OID"，不能被單獨持久化，生命週期依賴於所屬的持久化類的對象的生命週期。
+ * 		實體(entity):"有OID"，可以被單獨持久化，有獨立的生命週期。
  * 
  * */
 
@@ -14,7 +18,6 @@ public class News {
 	private Integer id;
 	private String title;
 	private String author;
-	
 	private Date date_;
 
 	public Integer getId() {

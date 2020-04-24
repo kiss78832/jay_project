@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/22 ?U?? 05:43:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.jay.hibernate.manyToOne_twoWay">
+    <class name="Customer" table="CUSTOMERS">
+        <id name="customerId" type="java.lang.Integer">
+            <column name="CUSTOMER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="customerName" type="java.lang.String">
+            <column name="CUSTOMER_NAME" />
+        </property>
+        
+        
+		<!-- 
+			inverse="true" 預設為"false"，可以取消"一方"維護關聯關係，就不會再自動去UPDATE 
+				(1).建議設定set的inverse=true，建議先插入"一方"那端，後插入"多方"那端。
+		-->
+		<!-- column:跟Order的設置<many-to-one>裡的column="CUSTOMER_ID"相對應，table:要跟Order.xml配置的名稱相同(欄位名稱相同)-->
+        <set name="orders" table="ORDERS" inverse="true">
+			<!-- 執行"多方"的表格中外來鍵的欄位名稱。 -->
+        	<key column="CUSTOMER_ID"></key>  
+        	<!-- 指定映射的類型 -->
+        	<one-to-many class="Order"/>
+        </set>
+    </class>
+</hibernate-mapping>
