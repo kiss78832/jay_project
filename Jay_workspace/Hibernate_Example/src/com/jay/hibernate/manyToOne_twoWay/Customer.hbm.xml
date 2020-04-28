@@ -14,8 +14,17 @@
         
         
 		<!-- 
-			inverse="true" 預設為"false"，可以取消"一方"維護關聯關係，就不會再自動去UPDATE 
-				(1).建議設定set的inverse=true，建議先插入"一方"那端，後插入"多方"那端。
+			inverse:預設為"false"，可以取消"一方"維護關聯關係，好處就是不會再自動去UPDATE。
+				(1).inverse:指定由哪一方來維護關聯關係，通常設置為"true"，指定由"多方"來維護關聯關係。
+				
+			cascade:用於當前對象所關聯的其他對象。(開發時不建議使用，建議用手工的方式來處理) 範例:cascade="delete-orphan"
+				(1).save-update:透過save()、update()、saveOrUpdate()來保存或更新當前對象時，會保存所有新創的臨時對象，並更新所有關聯的游離對象。
+				(2).delete:刪除該對象所有關聯的項目包含本身。
+				(3).delete-orphan:本意(刪除孤兒)，意指刪除自身有關聯的項目，但不會刪除本身，也就是變成獨自一個，才命名為孤兒。
+			
+			order-by:在"查詢"時，對集合中的元素進行排序
+				(1).order-by中使用的是"欄位名稱"，而不是持久化類型的屬性名稱。
+				(2).範例:order-by="ORDER_NAME_DESC"，後面可以[_+降冪排序或升冪排序]
 		-->
 		<!-- column:跟Order的設置<many-to-one>裡的column="CUSTOMER_ID"相對應，table:要跟Order.xml配置的名稱相同(欄位名稱相同)-->
         <set name="orders" table="ORDERS" inverse="true">

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/25 ?U?? 03:17:47 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.jay.hibernate.oneToOne_PK">
+    <class name="Department02" table="DEPARTMENTS_2">
+        <id name="deptId" type="java.lang.Integer">
+            <column name="DEPT_ID" />
+            <!--	foreign:使用外來鍵的方式來生成當前的主鍵(把FK跟PK同步就可以把dept_id跟mgr_id相同)	-->
+            <generator class="foreign">
+            	<!--	property 屬性指定使用當前持久化類的哪一個屬性的主鍵作為外鍵。這邊意思就是dept_id參照mgr(對應名稱department02.java參數)	 -->
+            	<param name="property">mgr</param>
+            </generator>
+        </id>
+        <property name="deptName" type="java.lang.String">
+            <column name="DEPT_NAME" />
+        </property>
+        
+		<!--	
+			(1).constrained(約束):指當前持久化類對應的資料庫的主見添加一個外鍵約束，引用被關聯的對象("對方")所應對的資料庫為主鍵。	
+			(2).採用foreign主鍵生成策略的一端增加"<one-to-one>"元素映射，其<one-to-one>屬性還應增加constrained="true"屬性(使當前主鍵添加外來鍵約束) ，另一端增加<one-to-one>元素映射關聯屬性。	
+		-->
+		<one-to-one name="mgr" class="Manager02" constrained="true"></one-to-one>
+    </class>
+</hibernate-mapping>

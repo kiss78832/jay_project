@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/25 ?U?? 03:17:47 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.jay.hibernate.oneToOne_FK.Department" table="DEPARTMENTS">
+        <id name="deptId" type="java.lang.Integer">
+            <column name="DEPT_ID" />
+            <generator class="native" />
+        </id>
+        <property name="deptName" type="java.lang.String">
+            <column name="DEPT_NAME" />
+        </property>
+        
+		<!-- 外鍵:使用many-to-one的方式來映射"一對一"關聯關係。(完成"單向"一對一) -->
+        <many-to-one name="mgr" class="com.jay.hibernate.oneToOne_FK.Manager" 
+        			column="MGR_ID" unique="true"></many-to-one>
+    </class>
+</hibernate-mapping>

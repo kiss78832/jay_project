@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/25 ?U?? 03:17:47 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.jay.hibernate.oneToOne_PK.Manager02" table="MANAGERS_2">
+        <id name="mgrId" type="java.lang.Integer">
+            <column name="MGR_ID" />
+            <generator class="native" />
+        </id>
+        <property name="mgrName" type="java.lang.String">
+            <column name="MGR_NAME" />
+        </property>
+        
+        <!-- 
+        
+        -->
+        <one-to-one name="dept" class="com.jay.hibernate.oneToOne_PK.Department02"></one-to-one>
+    </class>
+</hibernate-mapping>

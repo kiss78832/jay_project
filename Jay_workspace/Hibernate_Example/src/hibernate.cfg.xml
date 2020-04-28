@@ -55,11 +55,18 @@
     	<mapping resource="com/jay/hibernate/helloworld/News.hbm.xml"/>
     	<mapping resource="com/jay/hibernate/helloworld/Worker.hbm.xml"/>
     	
+    			<!-- 就算在不同pakeage有相同的*.hbm.xml就會相衝，所以測試記得註解  -->
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Customer.hbm.xml"/> -->
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Order.hbm.xml"/> -->
     	
     	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Customer.hbm.xml"/>
     	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Order.hbm.xml"/>
+    	
+		<mapping resource="com/jay/hibernate/oneToOne_FK/Manager.hbm.xml"/>
+    	<mapping resource="com/jay/hibernate/oneToOne_FK/Department.hbm.xml"/>
+    	
+    	<mapping resource="com/jay/hibernate/oneToOne_PK/Manager_PK.hbm.xml"/>
+    	<mapping resource="com/jay/hibernate/oneToOne_PK/Department_PK.hbm.xml"/>     	
     	
     	
     </session-factory>

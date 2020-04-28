@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/25 ?U?? 03:17:47 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.jay.hibernate.oneToOne_FK.Manager" table="MANAGERS">
+        <id name="mgrId" type="java.lang.Integer">
+            <column name="MGR_ID" />
+            <generator class="native" />
+        </id>
+        <property name="mgrName" type="java.lang.String">
+            <column name="MGR_NAME" />
+        </property>
+        
+        <!-- 
+        	(1).映射"一對一"的關聯關係:在對應的資料庫中已經有FK，當前持久化類別使用one-to-one進行映射(department完成單向一對一，這邊再設個one-to-one就變成"雙向"一對一) 
+        	(2).沒有外鍵(PK)的需要使用one-to-one，該元素使用property-ref屬性指定被關聯實體主鍵以外的字串作為關聯字串。	
+        -->
+        <one-to-one name="dept" class="com.jay.hibernate.oneToOne_FK.Department" property-ref="mgr"></one-to-one>
+    </class>
+</hibernate-mapping>

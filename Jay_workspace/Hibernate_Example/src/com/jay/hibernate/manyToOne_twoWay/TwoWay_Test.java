@@ -110,14 +110,23 @@ public class TwoWay_Test {
 	
 	/**
 	 *	刪除
+	 *	若沒設置cascade="delete"，會無法刪除，導致出現ConstraintViolationException(強制約束錯誤)
 	 */
 	@Test
 	public void twoWay_Delete() {
 		//在不設定級聯關係情況下，且 "1" 這端的對象有 "多"的對象再引用，不能直接刪除 "1"這端的對象。(間單來說多對一，"一"那方刪除，必須連同跟"一"有關聯的都刪除。)
-		Customer customer = (Customer) session.get(Customer.class, 40);
+		Customer customer = (Customer) session.get(Customer.class, 55);
 		session.delete(customer);
 	}
 	
+	/**
+	 *	Cascade測試
+	 */
+	@Test
+	public void twoWay_Cascade() {
+		Customer customer = (Customer) session.get(Customer.class, 73);
+		customer.getOrders().clear();
+	}
 	
 	
 }
