@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 
+	subclass:
+		(1).每個類別都要配上discriminator-value="XXX"，指定自己的名稱，不然進資料庫會是com.jay.subclass.XXX。
+		(2).記得配置"辨別者欄位"(<discriminator>)，設置辨別者欄位的資料就是靠discriminator-value="XXX"設置。
+		(3).父類別跟子類別使用同一張表格，因為共用通一張表格，所以才要加入<discriminator>來辨識他們來自於哪個類別。
+		(4).記得不能在子類用Not null的約束，因為Person沒有school，Hibernate會設置為空，而Student可以設置所有欄位，因為繼承關係，可以去設置person_name、age等欄位。
+		(5).子類可以引用父類別的，記得Person是無法設置Student的school
+ -->
+<hibernate-mapping package="com.jay.extend.subclass">
+    <class name="Person" table="PERSONS" discriminator-value="PERSON">
+    
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        
+        <!--	配置辨別者列	 -->
+        <discriminator column="TYPE" type="string"></discriminator>
+        
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="age" type="int">
+            <column name="AGE" />
+        </property>
+        
+		<!--	映射子類Student,使用subclass進行映射	 -->
+		<subclass name="Student" discriminator-value="STUDENT"> 
+			<property name="school" type="string" column="SCHOOL" ></property>
+		</subclass>
+    </class>
+</hibernate-mapping>

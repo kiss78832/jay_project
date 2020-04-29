@@ -1,21 +1,23 @@
 package com.jay.hibernate.manyToOne;
 
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Date;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.jdbc.Work;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 	單向多對一:在多對一 、一對多 中都是單向關聯，也就是其中一方關聯到另一方，而另一方不知道自己被關聯。 
+ * 
+ * 	單向 VS 雙向
+ * 		只需要從一方獲取另一方的數據時就使用單向關聯，雙方都需要獲取對方數據時就使用雙向關係。
+ * 		
+ */
 
 public class ManyToOne_Test {
 	

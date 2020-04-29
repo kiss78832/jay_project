@@ -16,6 +16,7 @@
 		<!-- 
 			inverse:預設為"false"，可以取消"一方"維護關聯關係，好處就是不會再自動去UPDATE。
 				(1).inverse:指定由哪一方來維護關聯關係，通常設置為"true"，指定由"多方"來維護關聯關係。
+				(2).關係的維護（inverse）通常都是交給多方
 				
 			cascade:用於當前對象所關聯的其他對象。(開發時不建議使用，建議用手工的方式來處理) 範例:cascade="delete-orphan"
 				(1).save-update:透過save()、update()、saveOrUpdate()來保存或更新當前對象時，會保存所有新創的臨時對象，並更新所有關聯的游離對象。
