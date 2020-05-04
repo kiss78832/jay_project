@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 
+	joined-subclass:
+		(1).每個子類別各一張表格。
+		(2).子類實體，由父類表和子類表共同儲存。
+		(3).各子類表示用<key>元素映射"共有主鍵"。(這邊的子類跟父類適用各別的主鍵來關聯)
+		(1).缺點:查詢跟新增效率偏慢。
+		(2).優點:
+				a.不需要辨別者列<discriminator>。
+				b.子類獨有字串能添加Not null的約束。
+				c.沒有冗餘的字串。
+ -->
+<hibernate-mapping package="com.jay.extend.joined_subclass">
+    <class name="Person" table="PERSONS" >
+    
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="age" type="int">
+            <column name="AGE" />
+        </property>
+        
+		<!--	映射子類Student,使用joined-subclass進行映射	 -->
+        <joined-subclass name="Student" table="STUDENTS">
+        	<key column="STUDENT_id"></key>
+        	<property name="school" type="string" column="SCHOOL" ></property>
+        </joined-subclass>
+        
+    </class>
+</hibernate-mapping>

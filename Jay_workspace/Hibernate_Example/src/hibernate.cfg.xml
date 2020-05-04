@@ -32,7 +32,7 @@
 				creat-drop-> 操作完直接連同資料表(table)一起刪除。
 				validate -> 跟update差別就是validate會驗證欄位是否符合，不符合就會報錯。
 		-->
-    	<property name="hbm2ddl.auto">update</property>
+    	<property name="hbm2ddl.auto">create</property>
     	
     	<!--	刪除對象後，使OID設為null 	-->
     	<property name="use_identifier_rollback">true</property>
@@ -51,10 +51,13 @@
     	<!--	設定對資料庫進行批次刪除，批次更新和批次插入的時候大小設定。[設置緩衝區的意思，一般設置30] 	--> 
     	<property name="jdbc.batch_size">30</property>
     	
+    	
+    	
+    	
     	<!--	指定關聯的.hbm.xml文件 	-->
     	<mapping resource="com/jay/hibernate/helloworld/News.hbm.xml"/>
     	<mapping resource="com/jay/hibernate/helloworld/Worker.hbm.xml"/>
-    	
+
     			<!-- 就算在不同pakeage有相同的*.hbm.xml就會相衝，所以測試記得註解  -->
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Customer.hbm.xml"/> -->
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Order.hbm.xml"/> -->
@@ -74,7 +77,9 @@
     	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Category.hbm.xml"/>
     	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Item.hbm.xml"/> 
     	
-    	<mapping resource="com/jay/extend/subclass/Person.hbm.xml"/> 
+<!--     	<mapping resource="com/jay/extend/subclass/Person.hbm.xml"/>  -->
+<!--     	<mapping resource="com/jay/extend/joined_subclass/Person.hbm.xml"/>  -->
+		<mapping resource="com/jay/extend/union_subclass/Person.hbm.xml"/>
     	
     	
     </session-factory>

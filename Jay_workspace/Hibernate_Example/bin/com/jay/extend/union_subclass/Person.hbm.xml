@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 
+	union-subclass:
+		(1).將每個實體對象映射到一個獨立的表格中。
+		(2).子類增加的屬性可以有Not null約束。
+		(3).子類實體的數據僅保存子類別中。
+		(4).既不需要"使用者鑑別者列"，也無須<key>元素來映射共有主鍵。
+		(5).使用union-subclass映射策略是"不可以使用identity"的主鍵生成策略。
+		(4).缺點:
+				a.存在冗餘的欄位。(Student表格直接創建父類表格的欄位)
+				b.若UPDATE父表格的欄位，則更新效率會低。(因為當父表格要更新，子表格也需要，)
+		(5).優點:
+				a.不需要辨別者列<discriminator>。
+				b.子類獨有欄位能添加Not null約束。
+
+ -->
+<hibernate-mapping package="com.jay.extend.union_subclass">
+    <class name="Person" table="PERSONS" >
+    
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="hilo" />
+        </id>
+        
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="age" type="int">
+            <column name="AGE" />
+        </property>
+        
+        <union-subclass name="Student" table="STUDENTS">
+        	<property name="school" column="SCHOOL" type="string"></property>
+        </union-subclass>
+    </class>
+</hibernate-mapping>
