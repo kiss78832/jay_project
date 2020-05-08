@@ -32,7 +32,7 @@
 				creat-drop-> 操作完直接連同資料表(table)一起刪除。
 				validate -> 跟update差別就是validate會驗證欄位是否符合，不符合就會報錯。
 		-->
-    	<property name="hbm2ddl.auto">create</property>
+    	<property name="hbm2ddl.auto">update</property>
     	
     	<!--	刪除對象後，使OID設為null 	-->
     	<property name="use_identifier_rollback">true</property>
@@ -62,25 +62,29 @@
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Customer.hbm.xml"/> -->
 <!--     	<mapping resource="com/jay/hibernate/manyToOne/Order.hbm.xml"/> -->
     	
-    	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Customer.hbm.xml"/>
-    	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Order.hbm.xml"/>
+<!--     	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Customer.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/manyToOne_twoWay/Order.hbm.xml"/> -->
     	
-		<mapping resource="com/jay/hibernate/oneToOne_FK/Manager.hbm.xml"/>
-    	<mapping resource="com/jay/hibernate/oneToOne_FK/Department.hbm.xml"/>
+<!-- 		<mapping resource="com/jay/hibernate/oneToOne_FK/Manager.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/oneToOne_FK/Department.hbm.xml"/> -->
     	
-    	<mapping resource="com/jay/hibernate/oneToOne_PK/Manager_PK.hbm.xml"/>
-    	<mapping resource="com/jay/hibernate/oneToOne_PK/Department_PK.hbm.xml"/>  
+<!--     	<mapping resource="com/jay/hibernate/oneToOne_PK/Manager_PK.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/oneToOne_PK/Department_PK.hbm.xml"/>   -->
     	
 <!--     	<mapping resource="com/jay/hibernate/manyToMany/Category.hbm.xml"/> -->
 <!--     	<mapping resource="com/jay/hibernate/manyToMany/Item.hbm.xml"/>    	 -->
     	
-    	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Category.hbm.xml"/>
-    	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Item.hbm.xml"/> 
+<!--     	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Category.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/manyToMany_twoWay/Item.hbm.xml"/>  -->
     	
 <!--     	<mapping resource="com/jay/extend/subclass/Person.hbm.xml"/>  -->
 <!--     	<mapping resource="com/jay/extend/joined_subclass/Person.hbm.xml"/>  -->
-		<mapping resource="com/jay/extend/union_subclass/Person.hbm.xml"/>
+<!-- 		<mapping resource="com/jay/extend/union_subclass/Person.hbm.xml"/> -->
     	
+<!--     	<mapping resource="com/jay/strategy/Customer.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/strategy/Order.hbm.xml"/> -->
     	
+    	<mapping resource="com/jay/HQL/entities/Department.hbm.xml"/>
+    	<mapping resource="com/jay/HQL/entities/Employee.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

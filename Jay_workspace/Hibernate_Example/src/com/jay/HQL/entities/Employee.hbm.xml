@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.jay.HQL.entities.Employee" table="EMPLOYEES_HQL">
+    
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
+        <property name="salary" type="float">
+            <column name="SALARY" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        
+        <many-to-one name="dept" class="com.jay.HQL.entities.Department">
+            <column name="DEPT_ID" />
+        </many-to-one>
+    </class>
+    
+	<!-- 
+    	CDATA全名:character data。所有XML文檔中的文本均會被解析器解析，除了CDATA區段（CDATA section）中的文本會被解析器忽略。
+		CDATA的形式如下： <![CDATA[文本内容]]> 。
+			(a).為何用CDATA的形式? 因為有多種符號 "<"、">"...所有避免造成xml影響，才用CDATA
+	 -->
+    <query name="salaryEmps">
+    	<![CDATA[FROM Employee e WHERE e.salary > :minSal AND e.salary < :maxSal]]>
+    </query>
+</hibernate-mapping>

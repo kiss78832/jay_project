@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/4/22 ?U?? 05:43:09 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="com.jay.strategy">
+	<!--
+		類別級檢索策略:(通過<class>元素的lazy屬性進行設置，預設值lazy="true")
+			立即檢索->立即加載檢索方法指定對象。(目的是訪問它的屬性，可採取立即檢索)
+			延遲檢索->延遲加載檢索方法指定對象，在使用具體的屬性時，再進行加載。(目的僅僅為了獲得引用，可以採用延遲加載，但會出現LazyInitializationException)
+		
+		(1).只會對Session的load()有效，對Session的get()、Query的list()均無效。
+	-->
+    <class name="Customer" table="CUSTOMER_lazy" lazy="true" batch-size="5">
+        <id name="customerId" type="java.lang.Integer">
+            <column name="CUSTOMER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="customerName" type="java.lang.String">
+            <column name="CUSTOMER_NAME" />
+        </property>
+        
+        
+        <set name="orders" table="ORDERS" inverse="true" lazy="true" batch-size="2" fetch="subselect">
+        	<key column="CUSTOMER_ID"></key>  
+        	<one-to-many class="Order"/>
+        </set>
+    </class>
+</hibernate-mapping>
