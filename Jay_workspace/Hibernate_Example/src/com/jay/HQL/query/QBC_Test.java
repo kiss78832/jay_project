@@ -1,17 +1,24 @@
 package com.jay.HQL.query;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jay.HQL.entities.Department;
 import com.jay.HQL.entities.Employee;
 
 public class QBC_Test {
@@ -46,7 +53,8 @@ public class QBC_Test {
 	}
 
 	/**
-	 * QBC琩高 
+	 * QBC琩高 :
+	 * 	 (1).Τㄇ穦ゑHQL临璶е羭ㄒ:皐癸Employee硂摸и稱琩高email琌SKUMAR羱戈琌5000穦疭е
 	 */
 	@Test
 	public void QBC_test() {
@@ -56,12 +64,100 @@ public class QBC_Test {
 		
 		//(2).睰琩高兵ン
 		//Criterion 硄筁Restrictions繰篈よ猭眔
-		criteria.add(Restrictions.eq("e-mail", "SKUMAR"));
-		criteria.add(Restrictions.gt("salary",5000));
+		criteria.add(Restrictions.eq("email", "SKUMAR"));
+		criteria.add(Restrictions.gt("salary",5000f));
 		
 		//(3).磅︽琩高
 		Employee employee = (Employee) criteria.uniqueResult();
 		System.out.println(employee);
 	}
 
+	/**
+	 * QBC琩高 (Or 蛤 And 絛ㄒ) :
+	 */
+	@Test
+	public void QBC_andOr_test() {
+		Criteria criteria = session.createCriteria(Employee.class);
+		
+		/*
+		 (1).AND:ㄏノConjunctionボ
+		 (1-1).Conjunctionセō碞琌Criteriaン
+		 (1-2).ㄤい临睰Criterionン
+		*/
+		Conjunction conjunction = Restrictions.conjunction();
+		conjunction.add(Restrictions.ilike("name", "a",MatchMode.ANYWHERE));
+		Department dept = new Department();
+		dept.setId(80);
+		conjunction.add(Restrictions.eq("dept", dept));
+		System.out.println(conjunction);
+		
+		/*
+		 (2).Or:ㄏノDisjunctionボ
+		*/
+		Disjunction disjunction = Restrictions.disjunction();
+		disjunction.add(Restrictions.ge("salary", 6000f));
+		disjunction.add(Restrictions.isNull("email"));
+		
+		criteria.add(disjunction);
+		criteria.add(conjunction);
+		
+		criteria.list();
+		
+	}
+	
+	/**
+	 * QBC琩高 (statistics参璸琩高絛ㄒ) max()程よ猭
+	 */
+	@Test
+	public void statistics_test() {
+		Criteria criteria = session.createCriteria(Employee.class);
+		
+		//参璸琩高:ㄏノProjectionㄓボ:パProjections繰篈よ猭快
+		criteria.setProjection(Projections.max("salary"));
+		
+		System.out.println(criteria.uniqueResult());
+	}
+	
+	/**
+	 * QBC琩高 (orderBy絛ㄒ)
+	 */
+	@Test
+	public void orderBy_test() {
+		Criteria criteria = session.createCriteria(Employee.class);
+		
+		//(1).睰逼
+		criteria.addOrder(Order.asc("salary"));
+		criteria.addOrder(Order.desc("email"));
+		
+		//(2).睰陆よ猭
+		int pageSize = 5;
+		int pageNo =3;
+		criteria.setFirstResult((pageNo -1) * pageSize)
+				.setMaxResults(pageSize)
+				.list();
+	}
+	
+	/**
+	 * セ诀巨SQL 絛ㄒ (穝糤)
+	 */
+	@Test
+	public void nativeSQL_test() {
+		String sql = "INSERT INTO DEPARTMENTS_HQL VALUES(?,?)";
+		Query query = session.createSQLQuery(sql);
+		
+		query.setInteger(0, 280)
+			 .setString(1, "ATGUIGU")
+			 .executeUpdate();
+	}
+	
+	/**
+	 * HQL 絛ㄒ (埃セ穝糤280)
+	 */
+	@Test
+	public void deleteHQL_test() {
+		String hql = "DELETE FROM Department d WHERE d.id = :id";
+		
+		session.createQuery(hql).setInteger("id", 28)
+								.executeUpdate();
+	}
 }
