@@ -14,6 +14,9 @@
 	<classpathentry kind="lib" path="lib/c3p0-0.9.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-c3p0-4.3.4.Final.jar"/>
 	<classpathentry kind="lib" path="lib/mchange-commons-java-0.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.7.19.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache-core-2.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-ehcache-4.3.11.Final.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
