@@ -1,0 +1,29 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../config/ehcache.xsd">
+
+	<!-- 此檔案複製來源:ehcache-core.jar複製底下的xml設定檔 -->
+	
+	
+	<!-- 
+		<diskStore>:可以指定一個目錄，當ehcache把數據寫在硬碟上時，將數據寫到這個目錄下。
+	 -->
+    <diskStore path="java.io.tmpdir"/>
+
+   
+   	<!-- 
+		<defaultCache>:設置緩存的默認數據過期策略。
+		
+		還有一個<cache>設置，但版本不符，有需要請到網路自行查詢。
+	 -->
+    <defaultCache
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            overflowToDisk="true"
+            maxElementsOnDisk="10000000"
+            diskPersistent="false"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU"
+            />
+     
+</ehcache>

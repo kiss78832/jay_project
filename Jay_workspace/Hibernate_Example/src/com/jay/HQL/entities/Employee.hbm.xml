@@ -4,6 +4,9 @@
 <hibernate-mapping>
     <class name="com.jay.HQL.entities.Employee" table="EMPLOYEES_HQL">
     
+		<!-- 設置二級緩存，hibernate.cfg.xml跟*.hbm.xml選一個地方設置就好 -->
+ 		<cache usage="read-write"/>   
+    
         <id name="id" type="java.lang.Integer">
             <column name="ID" />
             <generator class="native" />

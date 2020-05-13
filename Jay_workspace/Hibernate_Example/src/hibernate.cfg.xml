@@ -51,8 +51,16 @@
     	<!--	設定對資料庫進行批次刪除，批次更新和批次插入的時候大小設定。[設置緩衝區的意思，一般設置30] 	--> 
     	<property name="jdbc.batch_size">30</property>
     	
+    	<!-- 開啟二級緩存 -->
+    	<property name="cache.use_second_level_cache">true</property>
+    	<!-- 配置使用的二級緩存的產品 -->
+ 		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property> 
+ 			
+    	<!-- 配置啟用查詢緩存(HQL、QBC) -->
+    	<property name="cache.use_query_cache">true</property>
     	
-    	
+    	 <!-- 配置管理Session的方式) -->
+    	<property name="current_session_context_class">thread</property>
     	
     	<!--	指定關聯的.hbm.xml文件 	-->
     	<mapping resource="com/jay/hibernate/helloworld/News.hbm.xml"/>
@@ -86,5 +94,10 @@
     	
     	<mapping resource="com/jay/HQL/entities/Department.hbm.xml"/>
     	<mapping resource="com/jay/HQL/entities/Employee.hbm.xml"/>
+    	
+    	<!--	二級緩存(一定要擺後面，不然會報錯)，也可以到各自*.hbm.xml設置<cache usage="read-write"/> 	-->
+<!--     	<class-cache usage="read-write" class="com.jay.HQL.entities.Employee"/> -->
+    	<class-cache usage="read-write" class="com.jay.HQL.entities.Department"/>
+<!--     	<collection-cache usage="read-write" collection="com.jay.HQL.entities.Department.emps"/>     -->
     </session-factory>
 </hibernate-configuration>

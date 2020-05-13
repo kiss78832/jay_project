@@ -55,6 +55,12 @@ public class QBC_Test {
 	/**
 	 * QBC查詢 :
 	 * 	 (1).有些時候會比HQL還要快，舉例:針對Employee這個類別我想查詢email是SKUMAR薪資是大於5000的人，會特別快。
+	 *   (2).QBC增加SQL的可讀性，很多時候HQL當寫的較複雜就比較難讀原作者的邏輯。
+	 *   (3).基本流程:
+	 *   		(3-1)創建session -> 創建Transaction -> 創建Criteria -> [Criteria條件塞入] -> Criteria.list()查詢並回傳集合
+	 *   			 [看需要是否用foreach取資料] -> commit Transaction -> 關閉session
+	 *   (4).Restrictions 跟 Expression 用法一樣，Expression已經逐漸被Restrictions取代。
+	 *   
 	 */
 	@Test
 	public void QBC_test() {
@@ -119,7 +125,7 @@ public class QBC_Test {
 	}
 	
 	/**
-	 * QBC查詢 (orderBy範例)
+	 * QBC查詢 (orderBy範例 分頁範例)
 	 */
 	@Test
 	public void orderBy_test() {
@@ -132,8 +138,8 @@ public class QBC_Test {
 		//(2).添加翻頁方法
 		int pageSize = 5;
 		int pageNo =3;
-		criteria.setFirstResult((pageNo -1) * pageSize)
-				.setMaxResults(pageSize)
+		criteria.setFirstResult((pageNo -1) * pageSize) //setFirstResult()設置起始索引
+				.setMaxResults(pageSize) //setMaxResults()每頁最大顯示數方法
 				.list();
 	}
 	
