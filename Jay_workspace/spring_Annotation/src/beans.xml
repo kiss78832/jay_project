@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+		掃描package的註冊，只要標記@Controller、@Service、@Repository、@Component。
+		
+		以前XML寫法:<context:component-scan base-package="com.jay"></context:component-scan>
+		annotation寫法:在被指定Bean的地方加上註解@ConponentScan
+	 -->
+
+    <!-- 可參考MainConfig.java ， 可以類別取代xml -->
+	<bean id="person" class="com.jay.bean.Person" init-method="" depends-on="">
+		<property name="age" value="18"></property>
+		<property name="name" value="zhangsan"></property>
+	</bean>
+</beans>
