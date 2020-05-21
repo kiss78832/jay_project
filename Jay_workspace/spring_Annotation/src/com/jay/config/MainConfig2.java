@@ -49,7 +49,7 @@ public class MainConfig2 {
 	@Bean(name = "person")
 	public Person person00() {
 		//註解
-		System.out.println("給容器中添加Person...");
+		System.out.println("(MainConfig2.java)給容器中添加Person...");
 		return new Person("張三",25);
 	}
 	
@@ -63,14 +63,14 @@ public class MainConfig2 {
 	@Conditional({WindowsCondition.class}) 
 	@Bean(name = "bill")
 	public Person person01() {
-		System.out.println("創建bill_Bean容器");
+		System.out.println("(MainConfig2.java)創建bill_Bean容器");
 		return new Person("Bill Gates",62);
 	}
 	
 	@Conditional(LinuxCondition.class)
 	@Bean(name = "linus")
 	public Person person02() {
-		System.out.println("創建linus_Bean容器");
+		System.out.println("(MainConfig2.java)創建linus_Bean容器");
 		return new Person("linus",48);
 	}
 	

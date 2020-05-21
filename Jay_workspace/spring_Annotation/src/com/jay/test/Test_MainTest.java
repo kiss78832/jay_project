@@ -12,7 +12,7 @@ import com.jay.bean.Person;
 import com.jay.config.MainConfig;
 import com.jay.config.MainConfig2;
 
-public class MainTest {
+public class Test_MainTest {
 
 	public static void main(String[] args) {
 		/*

@@ -12,7 +12,7 @@
 	 -->
 
     <!-- 可參考MainConfig.java ， 可以類別取代xml -->
-	<bean id="person" class="com.jay.bean.Person" init-method="" depends-on="">
+	<bean id="person" class="com.jay.bean.Person" init-method="" destroy-method="">
 		<property name="age" value="18"></property>
 		<property name="name" value="zhangsan"></property>
 	</bean>

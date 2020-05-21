@@ -8,18 +8,18 @@ import org.springframework.stereotype.Component;
 public class Cat implements InitializingBean,DisposableBean{
 
 		public Cat() {
-			System.out.println("cat constructor...");
+			System.out.println("(Cat.java)cat constructor...");
 		}
 
 		@Override
 		public void destroy() throws Exception {
 			// TODO Auto-generated method stub
-			System.out.println("cat destory...");
+			System.out.println("(Cat.java)cat destory...");
 		}
 
 		@Override
 		public void afterPropertiesSet() throws Exception {
 			// TODO Auto-generated method stub
-			System.out.println("cat...afterPropertiesSet...");
+			System.out.println("(Cat.java)cat...afterPropertiesSet...");
 		}
 }

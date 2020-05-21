@@ -5,7 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.jay.config.MainConfigOfLifeCycle;
 
-public class LifeCycleTest {
+public class Test_LifeCycleTest {
 
 	@Test
 	public void test01() {
