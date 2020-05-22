@@ -66,11 +66,20 @@ import com.jay.dao.BookDao;
  *					applicationEventPulisherAware：應用事件發佈器，可以發布事件，
  *					ResourceLoaderAware： 獲得資源加載器，可以獲得外部資源文件的內容
  *					...等等
- * 						
+ *			
+ *			Bean生命週期:
+ * 			★★★  實例化(new Object) -> 填充屬性(注入bean的依賴或者給屬性賦值[setXXX]) -> 執行Aware接口(執行所有實作Aware介面的類別)
+ * 						 -> 初始化(初始化的方式有三種) -> 可用狀態(bean可以被應用程式使用) -> 銷毀(銷毀的方式有三種)
+ * 
+ * 			初始化的方式有三種:(1).實現InitializingBean介面  (2).@PostConstruct註解  (3).xml中通過init-method屬性指定初始化方法
+ * 			銷毀的方式有三種:(1).實現DisposableBean介面  (2).@PreDestroy註解  (3).xml中通過destroy-method屬性指定銷毀方法
+ * 
+ * 
+ * 
+ * 
  * 			★★★ 當@Configuration的@ComponentScan({})內有掃到到package，那麼在加載Spring配置文件時，會自動調用實作Aware接口中的。
- * 					 
+ * 			
  */
-
 
 @Configuration
 @ComponentScan({"com.jay.service","com.jay.dao","com.jay.controller","com.jay.bean"})
