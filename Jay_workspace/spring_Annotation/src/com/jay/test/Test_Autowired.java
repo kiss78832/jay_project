@@ -1,15 +1,11 @@
 package com.jay.test;
 
-import javax.sql.DataSource;
-
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.jay.bean.Boss;
 import com.jay.bean.Car;
 import com.jay.bean.Import01;
-import com.jay.config.MainConfigOfProfile;
 import com.jay.config.MainConifgOfAutowired;
 import com.jay.service.BookService;
 

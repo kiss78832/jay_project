@@ -20,7 +20,7 @@ import com.jay.condition.WindowsCondition;
  *	 容器註冊元件方式 :
  *		(1).Package掃描 + 元件標示注解(@Controller/@Service/@Repository/@Component)
  * 		(2).@Bean[導入第三方元件]，第三方元件不會幫你注解@Component等等...
- * 		(3).@Import[快速給容器中導入元件]
+ * 		(3).@Import[快速給容器中導入元件] (SpringBoot底層大量使用)
  * 			 (一).@Import(要導入到容器中的元件) : 容器中就會自動註冊這個元件，ID默認完整類名路徑
  * 			 (二).ImportSelector:返回需要導入的元件的完整類名陣列(參考MyImportSelector.java)
  * 			 (三).ImportBeanDefinitionRegistrar : 手動註冊Bean到容器中 (參考MyImportBeanDefinitionRegistrar.java)
@@ -54,7 +54,7 @@ public class MainConfig2 {
 	}
 	
 	/*
-	 *	@Conditional(條件) 按照一定的條件進行判斷，滿足條件給容器中註冊Bean
+	 *	@Conditional(條件) 按照一定的條件進行判斷，滿足條件給容器中註冊Bean (SpringBoot底層大量使用)
 	 *		(1).可自己寫一個類別來驗證，該類別記得要 extends Conditional ，再利用@Conditional就能進行驗證。
 	 *		(2).流程:
 	 *				使用到Bean的時候 	-> 訪問該@Bean	-> 透過@Conditional若回傳true就創建該Bean、若false就不創建該Bean。

@@ -1,0 +1,67 @@
+	
+===================================== 以下是創建和註冊AnnotationAwareAspectJAutoProxyCreator的過程 ==========================================
+	
+	
+	AOP原理:[看容器中註冊什麼元件，這個元件什麼時候工作，這個元件的功能設什麼?]
+		@EnableAspectJAutoProxy :
+	 		@Import(AspectJAutoProxyRegistrar.class):給容器中導入AspectJAutoProxyRegistrar
+	 			利用AspectJAutoProxyRegistrar自定義給容器中註冊Bean，BeanDefinition
+	 			internalAutoProxyCreator = AnnotationAwareAspectJAutoProxyCreator
+
+	繼承關係:
+		AnnotationAwareAspectJAutoProxyCreator
+			-> AnnotationAwareAspectJAutoProxyCreator
+				-> AbstractAdvisorAutoProxyCreator
+					->AbstractAutoProxyCreator
+							implements SmartInstantiationAwareBeanPostProcessor,BeanFactoryAware
+
+		AbstractAutoProxyCreator.setBeanFactory()
+		AbstractAutoProxyCreator.有後置處理器的邏輯
+		
+		AbstractAdvisorAutoProxyCreator.setBeanFactory() ->重寫setBeanFactory ->調用initBeanFactory()
+		AbstractAdvisorAutoProxyCreator.initBeanFactory() ->重寫initBeanFactory()
+
+
+	AOP原始碼流程:
+		
+		一、傳入配置類別(Config...)，創建IOC容器
+				EX:new AnnotationConfigApplicationContext(MainConifgOfAutowired.class)
+		二、註冊配置類別，調用refresh()刷新容器(container)，
+		三、registerBeanPostProcessors(beanFactory)(beanFactory);註冊Bean的後製處理器(BeanPostProcessor)方便攔截Bean的創建   
+				1).先獲取IOC容器已經定義了需要創建物件的所有BeanPostProcessor
+				2).給容器中加別的BeanPostProcessor
+				3).優先註冊實作的PriorityOrdered介面的BeanPostProcessor
+				4).再給容器中註冊實作Ordered介面的BeanPostProcessor
+				5).註冊沒實作優先級介面(Order..)的BeanPostProcessor
+				6).註冊BeanPostProcessor，實際上就是創建BeanPostProcessor物件，保存在容器中
+				      創建internalAutoProxyCreator的BeanPostProcessor[AnnotationAwareAspectJAutoProxyCreator]			
+						A).創建Bean的實體
+						B).poplateBean : 給bean的各種屬性賦值
+						C).initializeBean : 初始化bean的各種屬性賦值
+								a).invokeAwareMethods():調用Aware介面的方法
+								b).applyBeanPostProcessorBeforeInitialization():應用後製處理器PostProcessorBeforeInitialization()
+								c).invokeInitMethods():執行自定義的初始化方法
+								d).applyBeanPostProcessorsAfterInitialization():執行後置後置處理器PostProcessorsAfterInitialization()   
+						D).BeanPostProcessor(AnnotationAwareAspectJAutoProxyCreator) 創建成功 --->aspectJAdvisorsBuilder
+				7).把BeanPostProcessor註冊到BeanFactory中
+				   beanFactory.addBeanPostProcessor(postProcessor)
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
