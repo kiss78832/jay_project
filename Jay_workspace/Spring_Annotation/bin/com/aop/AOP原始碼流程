@@ -1,0 +1,145 @@
+	
+===================================== 以下是創建和註冊AnnotationAwareAspectJAutoProxyCreator的過程 ==========================================
+	
+	
+	AOP原理:[看容器中註冊什麼元件，這個元件什麼時候工作，這個元件的功能設什麼?]
+		@EnableAspectJAutoProxy :
+	 		@Import(AspectJAutoProxyRegistrar.class):給容器中導入AspectJAutoProxyRegistrar
+	 			利用AspectJAutoProxyRegistrar自定義給容器中註冊Bean，BeanDefinition
+	 			internalAutoProxyCreator = AnnotationAwareAspectJAutoProxyCreator
+
+	繼承關係:
+		AnnotationAwareAspectJAutoProxyCreator
+			-> AnnotationAwareAspectJAutoProxyCreator
+				-> AbstractAdvisorAutoProxyCreator
+					->AbstractAutoProxyCreator
+							implements SmartInstantiationAwareBeanPostProcessor,BeanFactoryAware
+
+		AbstractAutoProxyCreator.setBeanFactory()
+		AbstractAutoProxyCreator.有後置處理器的邏輯
+		
+		AbstractAdvisorAutoProxyCreator.setBeanFactory() ->重寫setBeanFactory ->調用initBeanFactory()
+		AbstractAdvisorAutoProxyCreator.initBeanFactory() ->重寫initBeanFactory()
+
+
+	AOP原始碼流程:
+		
+		一、傳入配置類別(Config...)，創建IOC容器
+				EX:new AnnotationConfigApplicationContext(MainConifgOfAutowired.class)
+		二、註冊配置類別，調用refresh()刷新容器(container)，
+		三、registerBeanPostProcessors(beanFactory)(beanFactory);註冊Bean的後製處理器(BeanPostProcessor)方便攔截Bean的創建   
+				1).先獲取IOC容器已經定義了需要創建物件的所有BeanPostProcessor
+				2).給容器中加別的BeanPostProcessor
+				3).優先註冊實作的PriorityOrdered介面的BeanPostProcessor
+				4).再給容器中註冊實作Ordered介面的BeanPostProcessor
+				5).註冊沒實作優先級介面(Order..)的BeanPostProcessor
+				6).註冊BeanPostProcessor，實際上就是創建BeanPostProcessor物件，保存在容器中
+				      創建internalAutoProxyCreator的BeanPostProcessor[AnnotationAwareAspectJAutoProxyCreator]			
+						A).創建Bean的實體
+						B).poplateBean : 給bean的各種屬性賦值
+						C).initializeBean : 初始化bean的各種屬性賦值
+								a).invokeAwareMethods():調用Aware介面的方法
+								b).applyBeanPostProcessorBeforeInitialization():應用後製處理器PostProcessorBeforeInitialization()
+								c).invokeInitMethods():執行自定義的初始化方法
+								d).applyBeanPostProcessorsAfterInitialization():執行後置後置處理器PostProcessorsAfterInitialization()   
+						D).BeanPostProcessor(AnnotationAwareAspectJAutoProxyCreator) 創建成功 --->aspectJAdvisorsBuilder
+				7).把BeanPostProcessor註冊到BeanFactory中
+				   beanFactory.addBeanPostProcessor(postProcessor)
+				
+====================================以上是創建和註冊AnnotationAwareAspectJAutoProxyCreator的過程==============
+
+        AnnotationAwareAspectJAutoProxyCreator => InstantiationAwwareBeanPostProcessor (說明InstantiationAwwareBeanPostProcessor元件)
+	一、finishBeanFactoryInitialization(beanFactory) ; 完成BeanFactory初始化工作，創建"剩下的單實例Bean"
+				1).遍歷獲取容器中所有的Bean，依次創建物件getBean(beanName)
+					getBean() -> doGetBean() -> getSingleton() -> 創建Bean(但不是馬上就創建，會做一些判斷)
+				2).創建Bean
+						[AnnotationAwareAspectjAutoProxyCreator在所有bean創建之前會有一個攔截，InstantiationAwareBeanPostProcessor，會調用postProcessBeforeInstantiation()]
+						A).先從緩存中獲取當前Bean，如果能獲取到，說明Bean之前被創建過的，有創建就直接使用，沒有創建就新建一個，只要創建好的Bean都會被緩存起來。
+						B).createBean() 創建Bean [AnnotationAwareAspectJAutoProxyCreator會在任何bean創建之前先嘗試返回bean實體]
+						   ↑[BeanPostProcessor是在Bean對象創建完成初始化前後調用的]  (第一種後置處理器)
+						   ↑[InstantiationAwareBeanPostProcessor是在創建Bean實體之前先嘗試用後置處理器返回對象] (第二種後置處理器)
+								a).resolveBeforeInstantiation(beanName,mbdToUse) -> (resolve判斷) 解析BeforeInstantiation
+								      希望後置處理器在此能返回一個代理對象，如果能返回代理對象就使用，若沒有就不能繼續。
+								      ● 後置處理先嘗試返回對象 : 
+								      	bean = applyBeanPostProcessorsBeforeInstantiation 
+								      	[拿到所有後置處理器，如果是InstantiationAwareBeanPostProcessor，就執行postProcessBeforeInstantiation]
+								      	if(bean != null){
+								      		bean = applyBeanPostProcessorsAfterInitialization(bean,beanName)
+								      	}
+								b).doCreateBean(beanName,mbdToUse,args); 真正的創見一個Bean實例，和 [三  ~ 6]流程一樣
+
+	 	[說明AnnotationAwareAspectJAutoProxyCreator[InstantiationAwareBeanPostProcessor]
+	一、每一今bean創建之前，調用postProcessBeforelnstantiation (): 關心MathCalculator和LogAspect的創建 
+				1)、判斷當前bean是否在advisedBeans中（保存了所有需要增強bean)
+				2)、判斷當前bean是否是基礎類型的Advice. Pointcut. Advisor、AopInfrastructureBean. 或者是否是切面（@Aspect)
+				3)、是否需要跳過
+					A).獲取候選的增強器（切面裡面的通知方法）〔List<Advisor> candidateAdvisors]，每一個封裝的通知方法 的增強器是IntantiationModelAwarePointcutAdvisor :
+					      判斷每一個增強器是否是AspectJPointcuAdvisor類型的，返回true
+					B).永遠返回false
+	二、創建對象
+	   postProcessAfterInitialization:
+	   		return wrapIfNecessary(bean,beanName,cachkey); // 包裝如果需要情況下
+	   			
+	   			1).獲取當前bean的所有增強器（通知方法）Object [] specificInterceptors
+	   				A).找到候選的所有的增強器（找某種通知方法是需要切入當前bean方法的）
+	   				B).獲取到能在bean使用的增強器
+	   				C).給增強器排序
+				2).保存當前bean在advisedBeans中
+				3).如果當前bean需要增強，創建當前bean的代理對象
+					A).獲取所有增強器（通知方法）
+					B).保存到proxyFactory
+					C).創建代理對象
+							a).JdkDynamicAopProxy(config)  <- jdk動態代理
+							b).ObjenesisCglibAopProxy(config) <- cglib的動態代理
+				4).給容器中返回當前元件使用cglib增強的代理對象
+				5).以後容器中獲取到的就是這個元件的代理對象，執行目標方法的時候，代理對象就會執行通知方法的流程
+ 
+	三、目標方法執行
+				1).CglibAopProxy .intercept() 攔截目標方法的執行
+				2).根據ProxyFactory對象獲取將要執行的目標方法攔截器鏈  List <Object> chain = this.advised.getInterceptorAndDynamic InterceptionAdvice 
+					A).List <Object> 攔截器列表保存所有攔截器5，一個默認的nvocationInterceptor和4個增強器。
+					B).遍歷所有的增強器，將其轉為Interceptor。registry.getInterceptor（advisor）
+					C).將增強器轉 為List <MethodInterceptor>; "如果是" MethodInterceptceptor，直接加入到集合中，
+					      "如果不是" 使用AdvisorAdapter將增強器轉為MethodInterceptor，轉換完成返回MethodInterceptor陣列
+			
+				3).如果沒有攔截器鏈，直接執行目標方法
+					A).攔截器鏈（每一個通知方法又被包裝為方法攔截器，利用方法Interceptor機制）
+				4).如果有攔截器鏈，並調用對象目標方法、攔截器鍊等信息傳入創建了一個CglibMethodInvocation對象，並調用Object retVal = MethodInvocation.proced（）;
+				5).攔截器的觸發過程
+					A).如果沒有攔截器執行目標方法，或者攔截器的索引和攔截器陣列 -1 大小一樣（指定到了最後一個攔截器）執行目標方法；
+					B).鏈式獲取每一個攔截器，攔截器執行invoke方法，每一個攔截器等待下一個攔截器執行完成返回以後再來執行； 攔截器鏈的機制，保証通知方法與目標方法的執行順序 。
+
+
+====================================================== 總結 ======================================================
+
+	一、@EnableAspectJAutoProxy 開啟AOP功能
+	二、@EnableAspectJAutoProxy 會給容器註冊一個元件 AnnotationAwareAspectJAutoProxyCreator
+	三、AnnotationAwareAspectJAutoProxyCreator 是一個後置處理器
+	四、容器創建流程:
+			1).創建容器 new AnnotationConfigApplicationContext 會調用refresh()方法刷新容器。
+				refresh()後會執行的方法:
+					A).postProcessBeanFactory(beanFactory);
+					B).invokeBeanFactoryPostProcessors(beanFactory);
+					C).registerBeanPostProcessors(beanFactory);
+					D).initMessageSource();
+					E).initApplicationEventMulticaster();
+					F).onRefresh();
+					G).registerListeners();
+					H).finishBeanFactoryInitialization(beanFactory);
+					I).finishRefresh();					
+			2).刷新容器有一部分是"registerBeanPostProcessors()註冊後"會創建 AnnotationAwareAspectJAutoProxyCreator(後置處理器) 物件。
+			3).finishBeanFactoryInitialization() 初始化剩下的單實例Bean
+					A).創建業務邏輯元件和切面元件
+					B).AnnotationAwareAspectJAutoProxyCreator 攔截元件創建過程
+					C).元件創建完成，判斷元件是否要增強。(postProcessAfterInitialization)
+							● 需要增強 : 切面的通知方法，包裝成增強器(Advisor)，給業務邏輯元件創建一個代理對象( 默認 : cglib)，若有介面也可以使用JDK
+
+	五、執行目標方法:
+			1).代理對象要執行目標方法
+			2).CglibAopProxy .intercept() 攔截目標方法的執行
+					A).先得到目標方法攔截器鏈(就是增強器包裝成攔截器[MethodInterceptor])
+					B).利用攔截器的鏈式機制，依照次數進入每一個攔截器進行執行
+					C).效果 :
+							[正常執行] : 前置通知 → 目標方法 → 後置通知 → 返回通知
+							[出現異常] : 前置通知 → 目標方法 → 後置通知 → 異常通知
+

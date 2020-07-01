@@ -11,13 +11,13 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mchange-commons-java-0.2.15.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-4.3.2.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-4.3.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aop-4.3.2.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/spring-aop-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aspects-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aspects-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-aspects-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.2.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-beans-4.3.2.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/spring-beans-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-4.3.2.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/spring-context-4.3.2.RELEASE-sources.jar"/>
@@ -55,7 +55,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-test-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.2.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-tx-4.3.2.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/spring-tx-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE-sources.jar"/>
@@ -67,5 +67,8 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/lib/aspectjweaver-1.8.13.jar"/>
+	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE-javadoc.jar"/>
+	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

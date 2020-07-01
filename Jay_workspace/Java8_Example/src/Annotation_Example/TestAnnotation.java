@@ -1,6 +1,8 @@
 package Annotation_Example;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -30,5 +32,12 @@ public class TestAnnotation {
 	@MyAnnotation("World")
 	public void show(@MyAnnotation("abc") String str) {
 		
+	}
+	
+	@Test
+	public void test02() {
+		List features = Arrays.asList("Lambdas", "Default Method", "Stream API",
+				 "Date and Time API");
+				features.forEach(System.out::println);
 	}
 }

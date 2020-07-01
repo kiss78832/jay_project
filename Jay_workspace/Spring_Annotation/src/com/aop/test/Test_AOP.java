@@ -23,4 +23,12 @@ public class Test_AOP {
 			applicationContext.close();
 			
 		}
+		
+		@Test
+		public void test02() {
+			int num =1;
+			
+			System.out.println("ด๚ธี : "+","+String.format("%03d",num));
+			
+		}
 }
