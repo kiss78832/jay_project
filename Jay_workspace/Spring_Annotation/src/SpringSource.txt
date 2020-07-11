@@ -1,0 +1,116 @@
+
+一、new AnnotationConfigApplicationContext(ConfigTest.class);
+	->register(annotatedClasses)、refresh();
+1.Spring容器refresh()[創建刷新](將Debug模式點選在refresh()上，進行過程探討)
+	[AbstractApplicationContext.java]
+	(1).prepareRefresh()刷新前的準備動作;
+		A).this.scanner.clearCache();//清緩存
+		B).super.prepareRefresh();//準備刷新
+			a).this.startupDate = System.currentTimeMillis();//紀錄時間
+			b).this.closed.set(false);//紀錄是否關閉
+			c).this.active.set(true);//紀錄是否開啟
+			d).logger.info("Refreshing " + this);//console 印出
+		 	e).initPropertySources();//For subclasses: do nothing by default.[初始化一些屬性設定，子類自定義個性化的屬性設置方法]
+			f).getEnvironment().validateRequiredProperties();//檢驗屬性的合法等
+			g).this.earlyApplicationEvents = new LinkedHashSet<ApplicationEvent>();//保存容器中的一些早期事件，在給予派發。
+				
+	(2).obtainFreshBeanFactory();//獲取BeanFactory  [obtain 獲取]
+		A).refreshBeanFactory();//刷新(或創建)BeanFactory、是個抽象方法、被GenericApplicationContext繼承實作refreshBeanFactory()
+			a).GenericApplicationContext建構子:
+				創建了一個 this.beanFactory = new DefaultListableBeanFactory();
+			b).進入實作refreshBeanFactory():
+				this.beanFactory.setSerializationId(getId());//設置序列化ID
+		B).getBeanFactory();//返回剛才GenericApplicationContext創建的BeanFactory對象
+		C).obtainFreshBeanFactory()返回 BeanFactory[DefaultListableBeanFactory]
+		
+	(3).prepareBeanFactory(beanFactory); //BeanFactory的預先準備工作(對BeanFactory進行一些設置):
+		A).設置BeanFactory的類別加載器、支持表達是式解析器等等許多工具
+			(ex:setBeanClassLoader、setBeanExpressionResolver、addPropertyEditorRegistrar、addPropertyEditorRegistrar)
+		B).添加部分beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+		C).設置"忽略"的自動裝配的介面 beanFactory.ignoreDependencyInterface(XXX.class)
+			a).ResourceLoaderAware.class
+			b).ApplicationEventPublisherAware.class
+			c).MessageSourceAware.class
+			d).ApplicationContextAware.class
+			e).EnvironmentAware.class
+		D).註冊可以解析的自動裝配，我們能在任何元件中"自動注入"。beanFactory.registerResolvableDependency(XXX)
+			a).BeanFactory.class //Bean工廠
+			b).ResourceLoader.class //
+			c).ApplicationEventPublisher.class //事件派發器
+			d).ApplicationContext.class //IOC容器
+		E).if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {...} //添加編譯時的AspectJ
+		F).beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment()); //給BeanFactory中註冊一些能用的元件 [Register default environment beans.]
+			a).beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment()); //[ConfigurableEnvironment environment] 註冊environment
+			b).beanFactory.registerSingleton(SYSTEM_PROPERTIES_BEAN_NAME, getEnvironment().getSystemProperties()); //[Map<String,Object> systemProperties] 獲取系統屬性
+			c).beanFactory.registerSingleton(SYSTEM_ENVIRONMENT_BEAN_NAME, getEnvironment().getSystemEnvironment()); //[Map<String, Object> systemEnvironment] 環境訊息
+	(4).postProcessBeanFactory(beanFactory);//BeanFactory準備工作完成後，進行的後置處理工作		
+		A).子類通過"重寫這個方法"來在BeanFactory創建並預準備完成以後做進一步的設置
+		
+======================== 以上是BeanFactory的創建及預先準備動作 ===========================	
+
+	(5).invokeBeanFactoryPostProcessors(beanFactory);//調用BeanFactoryPostProcessors方法
+		A).BeanFactoryPostProcessors:BeanFactory後置處理器。在BeanFactory標準初始化之後執行的"兩個"動作。
+			a). 執行[BeanFactoryPostProcessor]
+				但會優先執行內部的[BeanDefinitionRegistryPostProcessor]
+				if (beanFactory instanceof BeanDefinitionRegistry)//判斷是否為BeanDefinitionRegistry
+				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) 判斷是否為BeanDefinitionRegistryPostProcessor，
+					是的話新增BeanDefinitionRegistryPostProcessor的List，若不是新增在BeanFactoryPostProcessor的List當中
+				
+				//獲取所有的BeanDefinitionRegistryPostProcessor
+				String[] postProcessorNames =beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);	
+				
+				//First[步驟一]
+				//遍歷postProcessorNames[]，判斷是否實現PriorityOrdered.class介面，去"判斷優先級排序"
+				for (String ppName : postProcessorNames){
+					if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)){
+						Set<String> processedBeans = new HashSet<String>();
+						//把有實作優先級的加入集合
+						processedBeans.add(ppName);
+					}
+				}
+				//排序優先順序
+				sortPostProcessors(beanFactory, priorityOrderedPostProcessors);
+				//排完順序，繼續執行invokeBeanDefinitionRegistryPostProcessors()->
+					//postProcessor.postProcessBeanDefinitionRegistry(registry);
+				invokeBeanDefinitionRegistryPostProcessors(priorityOrderedPostProcessors, registry);
+				
+				//Next[步驟二]
+				//判斷是否實作Ordered.class，
+				if (!processedBeans.contains(ppName) && beanFactory.isTypeMatch(ppName, Ordered.class)) {
+					orderedPostProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
+					//加入集合
+					processedBeans.add(ppName);
+				}
+				//排序優先順序(同上)
+				sortPostProcessors(beanFactory, orderedPostProcessors);
+				//排序完繼續執行invokeBeanDefinitionRegistryPostProcessors()
+				invokeBeanDefinitionRegistryPostProcessors(orderedPostProcessors, registry);
+				
+				//Finally[步驟三]
+				//最後執行沒有實現任何優先級(PriorityOrdered)或是順序(Ordered)介面的BeanDefinitionRegistryPostProcessors
+				invokeBeanDefinitionRegistryPostProcessors(orderedPostProcessors, registry);
+				
+				// Now, invoke the postProcessBeanFactory callback of all processors handled so far.
+				//會執行所有註冊@Bean的方法
+				invokeBeanFactoryPostProcessors(registryPostProcessors, beanFactory);
+				invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
+				
+			b). 內部執行完，執行BeanFactoryPostProcessor [邏輯與上面相同]
+				  ● 獲取所有的BeanFactoryPostProcessor
+				  ● 看的執行實作PriorityOrdered(優先級介面)的BeanFactoryPostProcessor，並放在priorityOrderedPostProcessors集合
+				  ● 看的執行實作Order(排序介面)的BeanFactoryPostProcessor，並放在orderedPostProcessorNames集合
+				  ● 看的執行都"未實作"任何介面的BeanFactoryPostProcessor，並放在nonOrderedPostProcessorNames集合
+				  							 =========== 三個集合都會各自排序後立刻執行 =========
+				  ● sortPostProcessors(beanFactory, priorityOrderedPostProcessors); //排序 
+				  ● invokeBeanDefinitionRegistryPostProcessors(priorityOrderedPostProcessors, registry); //執行
+				  						     ===========                           =========
+				  ● 
+				  ● 
+				  ● 
+				  ● 
+					
+		
+		
+		
+		
+		

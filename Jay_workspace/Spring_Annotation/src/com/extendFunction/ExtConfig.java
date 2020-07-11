@@ -49,19 +49,22 @@ import com.jay.bean.Car;
  *		.......extends ApplicationContextEvent extends ApplicationEvent
  *	2.步驟 :
  *		1).寫一個監聽器(ApplicationListener實現類)來監聽某事件(ApplicationEvent及其子類)
+ *			A.@EventListener
+ *				a).
  *		2).把監聽器加入到容器
  *		3).只要容器中有相關事件的發布，我們就能監聽到這個事件。[刷新、關閉、開始、停止]
  *		4).發布一個事件:
  *			applicationContext.publishEvent()
  *	
  *	原理: [ContextRefreshedEvent、ConfigTest$1[source=我發布的事件]、ContextClosedEvent]
- *		1.ContextRefreshedEvent事件
+ *		1.ContextRefreshedEvent事件(內部發布)
  *			A.容器創建物件:refresh()。
  *			B.finishRefresh(); 容器刷新完成
  *			C.publishEvent(new ContextRefreshedEvent(this));
  *		2.自己發布事件
+ *		3.獲取到所有的ApplicationListener<?>
  *
- *		內部發布的事件跟自己發布的事件都會通過[事件發布流程]。
+ *		1-2 or 2-2"內部發布事件"跟"自己發布事件"都會通過[事件發布流程]。
  *				【事件發布流程】:
  *					a).把事件發送到各監聽器，獲取事件的多播器(派發器):getApplicationEventMulticaster()
  *					b).multicastEvent派發事件
@@ -71,6 +74,27 @@ import com.jay.bean.Car;
  *									Executor executor = getTaskExecutor();
  *								2.否則，同步的方式直接執行listener方法，invokeListener(listener,event);
  *								    拿到listener回傳onApplicationEvent方法
+ * 
+ *	【事件多播器(派發器)】
+ *		1.容器創建對象(物件): refresh()
+ *		2.initApplicationEventMulticaster() : 初始化ApplicationEventMulticaster
+ *			1).先去容器中找有沒有 id="applicationEventMulticaster"的元件
+ * 			2).如果沒有就會創建一個簡的的 -> applicationEventMulticaster = new SimpleApplicationEventMulticaster(beanFactory)
+ * 			       並且加入到容器中，我們就可以在其他元件要派發事件，自動注入這個applicationEventMulticaster
+ *
+ * 	【容器中有哪些監聽器】
+ * 			1).容器創建對象(物件): refresh()
+ * 			2).registerListeners()
+ * 				a).從容器中拿走所有的監聽器，把他們註冊到applicationEventMulticaster中，
+ * 				   String[] listenerBeanNames = getBeanNamesForType(ApplicationListener.class,true,false)
+ * 				   //將listener註冊到ApplicationEventMulticaster中
+ * 				   getApplicationEventMulticaster().addApplicationListenerBean(listenerBeanName);
+ * 			
+ * 	SmarInitializingSingleton原理:
+ * 			1).IOC容器創建對象並refresh();
+ * 			2).finishBeanFactoryInitialization(beanFactory) 初始化剩下的單實例Bean
+ * 				A.先創建所有的單實例Bean，getBean();
+ * 				B.獲取所有創建好的單實例Bean，判斷是否是smarInitializingSingleton類型的，如果是就調用afterSingletonsInstantiated();
  * 
  */
 @ComponentScan("com.extendFunction")
