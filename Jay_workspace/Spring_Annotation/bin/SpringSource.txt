@@ -100,16 +100,29 @@
 				  ● 看的執行實作PriorityOrdered(優先級介面)的BeanFactoryPostProcessor，並放在priorityOrderedPostProcessors集合
 				  ● 看的執行實作Order(排序介面)的BeanFactoryPostProcessor，並放在orderedPostProcessorNames集合
 				  ● 看的執行都"未實作"任何介面的BeanFactoryPostProcessor，並放在nonOrderedPostProcessorNames集合
-				  							 =========== 三個集合都會各自排序後立刻執行 =========
+				  							 =========== 三個集合都會各自"排序後立刻執行" =========
 				  ● sortPostProcessors(beanFactory, priorityOrderedPostProcessors); //排序 
 				  ● invokeBeanDefinitionRegistryPostProcessors(priorityOrderedPostProcessors, registry); //執行
-				  						     ===========                           =========
-				  ● 
-				  ● 
-				  ● 
-				  ● 
-					
+				  						     ===========         ==========          =========
+
+	(6).registerBeanPostProcessors(beanFactory) //註冊Bean後置處理器[intercept bean creation 攔截Bean的創建過程]
 		
+		不同介面的類型的BeanBeanPostProcessor，在Bean創建前後的執行時機是不一樣的。
+		DestructionAwareBeanPostProcessor
+		InstantiationAwareBeanPostProcessor
+		  ->SmartInstantiationAwareBeanPostProcessor  
+		MergedBeanDefinitionPostProcessor
+		
+		A).獲取所有的BeanPostProcessor，後置處理器都默認可以通過PriorityOrdered、Ordered介面執行優先級
+		      依照各種類型加入不同的集合。(priorityOrderedPostProcessors、internalPostProcessors、orderedPostProcessorNames、nonOrderedPostProcessorNames)
+		B).先註冊PriorityOrdered優先級介面的BeanPostProcessor → 在註冊Ordered介面的  → 再註冊沒有實現任何介面的  → 最後註冊internalBeanPostProcessors.(這集合放的都是MergedBeanDefinitionPostProcessor)
+			[每個都依照步驟1.2.3去做]
+			1.sortPostProcessors(beanFactory, priorityOrderedPostProcessors);//先把每個集合排序過後
+			2.registerBeanPostProcessors(beanFactory, priorityOrderedPostProcessors);//註冊BeanPostProcessors(後置處理器)
+				→beanFactory.addBeanPostProcessor(postProcessor);把每一個BeanPostProcessor，添加到BeanFactory中。
+		C).beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext)
+		   //最終添加ApplicationListenerDetector後置處理器，在Bean創建完成後檢查是否為ApplicationListener
+		   //是的話this.applicationContext.addApplicationListener((ApplicationListener<?>) bean);
 		
 		
 		
