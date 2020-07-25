@@ -59,7 +59,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-web-4.3.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE-sources.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE.jar" sourcepath="WebContent/WEB-INF/lib/spring-webmvc-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-portlet-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-portlet-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-webmvc-portlet-4.3.2.RELEASE.jar"/>
@@ -70,5 +70,6 @@
 	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="src/lib/spring-jdbc-4.3.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
