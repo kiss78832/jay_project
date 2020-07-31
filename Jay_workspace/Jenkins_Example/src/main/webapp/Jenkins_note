@@ -1,0 +1,41 @@
+一、項目開發效率優化
+		1.持續部屬:把程式碼部屬在 Jenkins 上，持續新增程式碼都能偵測新進的程式碼會不會造成伺服器卡住。
+		2.持續集成:大項目會有多個模塊，每個小組可能都分別負責一部分的小模塊，Jenkins可以隨時幫你整合，看眾多模塊合併後會不會出現異常。
+		3.持續交付:面對最終用戶，用小版本不斷迭代，收集客戶的回饋去修改小問題。
+		4.總結:
+			1).降低風險:[進行多次的內建發現問題，都能及時去修改。]
+			2).減少重複過程
+			3).任何時間、地點生成可部屬軟體:
+			4).增強項目的可見性
+			5).建立團隊開發對產品的信心
+
+二、持續集成工具
+		1.Jenkins 和 Hudson 是類似的工具，因為sun被收購，所以才導致團隊分裂，分出這兩個版本。
+		2.兩著都可以整合GitHub或Subversion
+		
+三、JavaEE項目部屬方式比對 
+		1.手動部署
+			1).(開發人員) 工作區[局部] → 
+			2).(版本控制服務器) 提交  → 代碼庫[完整] →
+			3).(過程) 檢出 → 原始碼  → 打包  → war檔  → 部署  → Tomcar[應用服務器] (最終用戶or測試人員)
+			
+		2.自動化部署
+			1).(開發人員) 工作區[局部] → 
+			2).(版本控制服務器) 提交  → 代碼庫[完整] → 觸發   → 鉤子程序  →
+			3).(自動過程) 通知 → Jenkins  → 調用  → Git/SVN 插件  → 獲取 → 源代碼 → 打包 → war包 → 部署 → Tomcar[應用服務器] (最終用戶or測試人員)		
+                                              → Maven 插件  → 打包 → war包 → 部署 → Tomcar[應用服務器] (最終用戶or測試人員)
+										      → Deploy to web container 插件 → 部署 → Tomcar[應用服務器] (最終用戶or測試人員)
+
+四、安裝步驟
+		1.Tomcat設定
+			1).設置 Tomcat [..\apache-tomcat-8.5.49\conf\tomcat-users.xml]
+				  ● <role rolename="manager-gui"/>
+					<role rolename="manager-script"/>
+					<role rolename="manager-jmx"/>
+					<role rolename="manager-jmx"/>
+					<user password="123456" username="tomcat_user" roles="manager-gui,manager-script,manager-status" />
+			2).設置 Tomcat [..\apache-tomcat-8.5.49\conf\server.xml] (約在71~73行，Tomcat預設port:8080那邊)
+				  ● <Connector connectionTimeout="20000" port="18080" protocol="HTTP/1.1" redirectPort="8443" URIEncoding="UTF-8"/>
+		3.再直接去Jenkins官網下載，並上網查詢安裝步驟。
+		
+五、
