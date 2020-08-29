@@ -1,0 +1,34 @@
+<html>
+    <head>
+		<title>過度動畫效果</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+         
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+
+    <!-- 
+                過渡動畫:
+            v-enter v-enter-to [v-enter-active]   Enter
+            v-leave v-leave-to [v-leave-active]   Leave
+     -->
+    <body>
+        <div id="test">
+            <button @click="isShow= !isShow">toggle</button>
+            <trasition name="xxx">
+                    <p v-show="isShow">hello</p>
+            </trasition>
+        </div>
+            <script> 
+                new Vue({
+                el: '#test',
+                data() {
+                    return{
+                        isShow:true
+                    }
+                }
+                })
+            </script>
+    </body>
+</html>

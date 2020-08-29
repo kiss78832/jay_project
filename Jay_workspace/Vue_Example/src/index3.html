@@ -1,0 +1,62 @@
+<html>
+    <head>
+		<title>Hello Vue!</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id="demo">
+            <h2>測試 : v-for 遍歷陣列</h2>
+            <ul>
+                <!-- v-for='(p,index)' in persons [有兩個變量 ，P(當前元素，可隨便命名)、index(序列)，in persons(遍歷對象)，:key(記得加冒號，才能變成表達式)] -->
+                <li v-for="(p,index) in persons" :key="index">
+                    {{index}} ----- {{p.name}} ----- {{p.age}} ---
+                    <button @click="deleteP(index)">刪除</button>
+                    <button @click="updateP(index,{name:'Cate',age:20})">更新</button>
+                    <p>P的內容 {{p}}</p>
+                </li>
+            </ul>
+            <h2>測試 : v-for 遍歷對象</h2>
+            <ul>
+                <!-- key value item 都是保留字 -->
+                <li v-for="(item,key) in persons[1]" :key="key">
+                    {{item}} ----- {{key}}
+                </li>
+                <li v-for="(key,value) in persons[2]">
+                    {{value}} ----- {{key}}
+                </li>
+            </ul>    
+        </div>
+            <script>
+                //Vue本身只是監視persons的改變，沒有監視陣列內的變數的改變
+                //Vue重寫了陣列中的一系列改變陣列內部數據的方法(先調用原生，更新介面) → 陣列內部改變，界面自動變化
+                new Vue({
+                    el:'#demo',
+                    data:{
+                        persons:[
+                            {name:'Tom',age:18},
+                            {name:'Jack',age:16},
+                            {name:'Bob',age:19},
+                            {name:'Rose',age:17},
+                    ]
+                    },
+                methods:{
+                    //刪除persons中指定index的p
+                    deleteP(index){
+                        //splice(刪除index，刪除一個)
+                        this.persons.splice(index,1)//splice()是Vue內部方法
+                    },
+                    updateP(index,newP){
+                        //this.persons[index] = newP //無法改變persons本身。 (陣列內雖然發生變化，但並沒有使用變異方法[vue的內部方法]，所以不會更新界面)
+                        //this.persons = [] //可以改變(因為Vue是監控陣列，而把陣列為空就等於改變了)
+                        this.persons.splice(index,1,newP) //可以實作增、刪、改 splice(指定物件,刪除幾個，0代表不刪除,更改為什麼資料)
+                    }
+            
+                }
+                })
+
+            </script>
+    </body>
+</html>

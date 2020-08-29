@@ -1,0 +1,53 @@
+<html>
+    <head>
+		<title>Test02</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+         
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h2>1.雙大括號表達是 </h2>
+            <p>{{message}}</p>
+            <!-- toUpperCase()變大寫，JS語法 -->
+            <p>{{message.toUpperCase()}}</p>
+            <!-- (v-html會解析標籤) -->
+            <p v-html="message02"></p>
+            <!-- (v-text純文字)跟 {{id}} 是一樣的 -->
+            <p v-text="message"></p>
+
+            <h2>2.指令一:強制數據綁定</h2>
+            <img :src="imgUrl">
+            <!-- 強制變成JS表達式 v-bind: -->
+            <!-- [ : -> 綁定數據省略代替符號 ] -->
+            <img v-bind:src="imgUrl">
+
+            <h2>3.指令二:綁定事件監聽</h2>
+            <button v-on:click="test">第一種寫法</button>
+            <!-- [@ -> 監聽省略代替符號 ]-->
+            <button @click="test">第二種寫法</button>
+            <button @click="test02('Hello World')">第三種寫法(參數)</button>
+            <button @click="test02(message)">第四種寫法(拿data當參數)</button>
+        </div>
+            <script type="text/javascript">
+                const app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'I Will back!',
+                    message02:"<a href='www.google.com'>test</a>",
+                    imgUrl:"https://cn.vuejs.org/images/logo.png"
+                },
+                methods:{
+                    test(){
+                        alert("測試成功")
+                    },
+                    test02(content){
+                        alert("得到參數 : "+content);
+                    }
+                }
+                })
+            </script>
+    </body>
+</html>

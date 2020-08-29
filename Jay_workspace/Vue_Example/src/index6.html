@@ -1,0 +1,73 @@
+<html>
+    <head>
+		<title>Hello Vue!</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+         
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id="demo">
+            <!-- 以前是在標籤上寫onsubmit="" ， Vue是使用@submit -->
+            <form action="/xxx" @submit.prevent="handleSubmit">
+                <span>用戶名 :</span>
+                <input type="text" v-model="username"><br>
+                
+                <span>密碼 :</span>
+                <input type="password" v-model="pwd"><br>
+
+                <span>性別 :</span>
+                <input type="radio" id="female" v-model="sex" value="女">
+                <label for="female">女</label>
+                <input type="radio" id="male" v-model="sex"  value="男">
+                <label for="male">男</label><br>
+
+                <span>愛好 :</span>
+                <input type="checkbox" id="basket" v-model="likes" value="basket">
+                <label for="basket">籃球</label>
+                <input type="checkbox" id="foot" v-model="likes" value="foot">
+                <label for="foot">足球</label>
+                <input type="checkbox" id="pingpang" v-model="likes" value="pingpang">
+                <label for="pingpang">乒乓</label><br>
+
+                <span>城市 :</span>
+                <select v-model="cityId">
+                    <option>未選擇</option>
+                    <!-- value 只會看成純文字，若加冒號則可以變成表達式 。 (city,index)-->
+                    <option :value="city.id" v-for="(city,index) in allCitys" :key="index">{{city.name}}</option>
+                </select><br>
+                <span>介紹</span>
+                <textarea rows="10" v-model="desc"></textarea><br><br>
+
+                <input type="submit" value="註冊">
+
+            </form>
+        </div>
+            <script>
+                new Vue({
+                    el: '#demo',
+                    data: {
+                        username:'',
+                        pwd:'',
+                        sex:'女',
+                        likes:['foot'], //讓radio button 默認，只要輸入對應的value值即可
+                        allCitys:[
+                            {id:1,name:'BJ'},
+                            {id:2,name:'SH'},
+                            {id:3,name:'GD'},
+                        
+                        ],
+                        cityId:'3', //預設為3
+                        desc:''
+                    },
+                    methods:{
+                        handleSubmit(){
+                            console.log(this.username,this.pwd,this.sex,this.likes,this.cityId,this.desc);
+                        }
+                    }
+                    
+                    })
+            </script>
+    </body>
+</html>

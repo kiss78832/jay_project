@@ -1,0 +1,71 @@
+<html>
+    <head>
+		<title>Hello Vue!</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <!-- 列表過濾 -->
+        <!-- 列表排序 -->
+        <div id="test">
+            <input type="text" v-model="serachName">
+            <ul>
+                <li v-for="(p,index) in filterPersons" :key="index">
+                    {{index}} -- {{p.name}} -- {{p.age}}
+                </li>
+            </ul>
+            <button @click="setOrderType(1)">年齡升序</button>
+            <button @click="setOrderType(2)">年齡降序</button>
+            <button @click="setOrderType(3)">原本順序</button>
+        </div>
+            <script>
+                new Vue({
+                    el:'#test',
+                    data:{
+                        serachName:"",
+                        orderType:0,//0 代表原本 , 1 代表升序 ,  2 代表降序
+                        persons:[
+                            {name:'Tom',age:18},
+                            {name:'Jack',age:16},
+                            {name:'Bob',age:19},
+                            {name:'Rose',age:17},
+                    ]
+                    },
+                    //計算屬性，過濾就是需要計算
+                    computed:{
+                        filterPersons(){
+                            //取出相關數據
+                            //const是JavaScript的一種聲明方式，如果使用const定義的將是常量，在後續的程序運行中，其值將無法被改變。
+                            const {serachName,persons,orderType} = this;//這邊this是指data整個
+                            // alert({serachName,persons}.serachName);
+                            //最終需要顯示的陣列
+                            let fPersons;
+                            //對persons進行過濾 。
+                            //indexOf() -> 尋找參數在字串中視排序第幾個，沒有則返回-1
+                            fPersons = persons.filter(p => p.name.indexOf(serachName) != -1)
+
+                            //排序
+                            if(orderType != 0){
+                                fPersons.sort(function(p1,p2){//如果返回負數 p1在前，返回正數 p2在前
+                                    
+                                    if(orderType === 2){
+                                        return p1.age-p2.age
+                                    }else{
+                                        return p2.age - p1.age
+                                    }
+                                })
+                            }
+                            return fPersons;
+                        }
+                    },
+                     methods:{
+                        setOrderType(orderType){
+                            this.orderType = orderType
+                        }
+                    }
+                })
+
+            </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<html>
+    <head>
+		<title>Hello Vue!</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+         
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+
+        <!-- 
+        Vue生命週期
+             [XXX] -> 代表可使用該方法
+                             初始化顯示:            
+                [beforeCreat()]                    [created()]                                                                                                                      [beforeMount()]                              [mounted()]
+            new Vue() → Observe Data → init Events → Has "el" option? → (Yes) 有設置 "el" 根據 el指定的區塊解析   → Has "template" option? → (Yes) Comepile "template" into render function → Create vm.Sel and replace "el" with it → Mounted (初始化結束)                                                
+                                                                      → (No)  when vm.$mount(el) is called  ↗                                                             →   (No)  Comepile "el" innerHTML as template      ↗
+                        [beforeUpdate()]畫面更新前                               [updated()]畫面更新前
+            Mounted的內部流程 :(→ virtual DOM re-render and patch → )
+                                        [beforeDestroy()]                                                 [destroyed()]
+                          接續到死亡步驟  → Mounted (初始化結束) → Teardown watchers,child components and event listeners(解除綁定)  → Destroyed(死亡)                                                                                                                                                                             
+            
+                          常用的生命週期方法
+                mounted(): 發送ajax請求，啟動定時器等異步任務。
+                beforeDestory():  做收尾工作。 如:清除定時器
+        -->
+        <div id="test">
+            <button @click="destroy">destroy vm(銷毀VM)</button>
+            <p v-show="isShow">Vue生命週期範例</p>
+        </div>
+        
+        <script>
+            new Vue({
+                 el:'#test',
+                data:{
+                   isShow:true
+                    
+                },
+                methods:{
+                    destroy(){
+                        this.$destroy()
+                    }
+                },
+                mounted(){ //mounted()初始化顯示之後立即調用
+                    //實作計時器，destroy()無法終止Interval，只能將畫面閃爍的文字清除，實際上還是繼續在執行，稱"暫存洩漏""
+                    console.log("mounted() 初始化結束");
+                    this.intervalId= setInterval( () => {
+                    console.log("---暫存洩漏---") //執行$destroy()，還會繼續跑，這是暫存洩漏
+                    this.isShow = !this.isShow
+                },1000)
+                },
+                // 1. 初始化階段
+                beforeCreate(){
+                    console.log("beforeCreate()");
+                },
+                created(){
+                    console.log("created()");
+                },
+                beforeMount(){
+                    console.log("beforeMount()");
+                },
+                // 2. 更新階段 (會執行N次)
+                beforeUpdate(){
+                    console.log("beforeUpdate()") 
+                },
+                updated(){
+                    console.log("updated()");
+                },
+                // 3. 死亡階段
+                //beforeDestroy() -> 死亡之前調用 1 次
+                beforeDestroy(){
+                    clearInterval(this.intervalId);//
+                    console.log("beforeDestroy()");
+                },
+                destroyed(){
+                    console.log("destroyed()");
+                }
+            })
+        </script>
+    </body>
+</html>

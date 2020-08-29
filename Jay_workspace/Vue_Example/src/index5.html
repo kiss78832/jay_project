@@ -1,0 +1,75 @@
+<html>
+    <head>
+		<title>Test02</title>
+        <link rel="stylesheet" href="index.css">
+        <meta charset="UTF-8">
+         
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id="example">
+           <h2>1.綁定監聽</h2>
+           <button @click="test1">test1</button>
+           <button @click="test2('Hello World')">test2</button>
+           <!-- test3() 會預設 test3($event) ， 但加上參數則會自動把$event覆蓋，若還需要有event效果，請在傳$event的參數進去 -->
+           <button @click="test3($event)">test3</button> 
+           <button @click="test4(123,$event)">test4</button>
+            
+           <h2>2.事件修飾符</h2>
+
+            <div style="width:200px;height:200px;background:red;" @click="test5">
+                <div style="width:100px;height:100px;background:blue;" @click.stop="test6">
+
+                </div>  
+            </div>
+
+            <a href="http://www.google.com" @click.prevent="test7">Google 超連結</a>
+
+           <h2>3.按鍵修飾符</h2>
+           <!-- @keyup(按鍵彈起來發生事件) -->
+           <input type="text" @keyup.13="test8">
+
+        </div>
+            <script type="text/javascript">
+                new Vue({
+                    el:'#example',
+                    data:{
+                        test1(){
+                            alert('test1')
+                        },
+                        test2(msg){
+                            alert(msg)
+                        },
+                        test3(event){
+                            //event.target 屬性則是永遠指向觸發事件的 DOM 物件
+                            alert(event.target.innerHTML)
+                        },
+                        test4(number,event){
+                            alert(number+' ---- '+event.target.innerHTML)
+                        },
+                        test5(){
+                            alert('out')
+                        },
+                        test6(){
+                            // event.stopPropagation() -> JS原生作法，解決冒泡問題
+                            // @click.stop ="xx" Vue的做法直接在html加上stop，就能處理冒泡問題
+                            alert('inner')
+                        },
+                        test7(){
+                            // event.preventDefault() -> JS原生寫法，阻止事件默認行為(超連結不會連到google網頁)
+                            alert('點擊超連結')
+                        },
+                        test8(event){
+                            //alert(event.keyCode) -> 可利用此方法知道每個按鍵的專屬碼
+                            // ↓↓↓  以下是JS原生寫法  ↓↓↓  (Vue只要在HTML標籤上輸入@keyup.13 or @keyup.enter就可以)
+                            // if(event.keyCode === 13){ //13 為 Enter鍵
+                            //     alert(event.target.value+" --- "+event.keyCode)
+                            // }
+                            alert(event.target.value+" --- "+event.keyCode)
+                        }
+                    }
+                })
+            </script>
+    </body>
+</html>

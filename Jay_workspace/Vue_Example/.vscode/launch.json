@@ -1,0 +1,55 @@
+// Use IntelliSense to learn about possible attributes.
+// Hover to view descriptions of existing attributes.
+// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch index.html",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9205,
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Chrome 127.0.0.1",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9252,
+      "webRoot": "${workspaceFolder}",
+      "url": "http://127.0.0.1:2500/p/Vue_Example/src/index2.html?_cmAuth\u003dfxlzgikzxn"
+    },
+    {
+      "name": "Launch Chrome 127.0.0.1 (1)",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9208,
+      "webRoot": "${workspaceFolder}",
+      "url": "http://127.0.0.1:2500/p/Vue_Example/src/index3.html?_cmAuth\u003dfxlzgikzxn"
+    },
+    {
+      "name": "Launch Chrome 127.0.0.1 (2)",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9290,
+      "webRoot": "${workspaceFolder}",
+      "url": "http://127.0.0.1:2500/p/Vue_Example/src/index6.html?_cmAuth\u003dfxlzgikzxn"
+    },
+    {
+      "name": "Launch Chrome 127.0.0.1 (3)",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9242,
+      "webRoot": "${workspaceFolder}",
+      "url": "http://127.0.0.1:2500/p/Vue_Example/src/index7.html?_cmAuth\u003dfxlzgikzxn"
+    },
+    {
+      "name": "Launch Chrome 127.0.0.1 (4)",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9273,
+      "webRoot": "${workspaceFolder}",
+      "url": "http://127.0.0.1:2500/p/Vue_Example/src/index8.html?_cmAuth\u003dfxlzgikzxn"
+    }
+  ]
+}
