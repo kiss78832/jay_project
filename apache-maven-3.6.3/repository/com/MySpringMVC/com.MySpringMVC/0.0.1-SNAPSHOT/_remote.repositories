@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 31 15:23:47 CST 2020
+com.MySpringMVC-0.0.1-SNAPSHOT.war>=
+com.MySpringMVC-0.0.1-SNAPSHOT.pom>=
