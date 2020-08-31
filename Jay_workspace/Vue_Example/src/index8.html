@@ -36,11 +36,11 @@
         
         /* 3. zzz */    
             .zzz-enter-active{
-                animation:zzz-in .5s;
+                animation:zzz-in 1s;
             };
             .zzz-leave-active{
                 /* reverse 相反的意思，在@keyframes的邏輯會相反過來做 */
-                animation:zzz-in .5s reverse;
+                animation:zzz-in 1s reverse;
             };
             /* % 算是時間上的戳記，假設設定為1秒，0%[0秒的時候]、50%[0.5秒的時候]、100%[1秒的時候]*/
             @keyframes zzz-in {
@@ -92,10 +92,11 @@
         </transition>
     </div>
 
+    <!-- TODO 未處理放大效果 -->
     <div id="test2">
         <button @click="isShow= !isShow">toggle2</button><br>
         <transition name="zzz">
-                <p v-if="isShow" style="display: inline-block;">hello</p>
+                <p v-if="isShow" style="display:inline-block;">hello</p>
         </transition>
     </div>    
         <script> 
@@ -117,13 +118,11 @@
             }
             })
 
-            // new Vue({
-            // el: '#test2',
-            // data() {
-            //     return{
-            //         isShow:true
-            //     }
-            // }
-            // })
+            new Vue({
+            el: '#test2',
+            data:{
+                    isShow:true
+            }
+            })
         </script>
 </html>
