@@ -1,0 +1,13 @@
+Maven:
+	1.介紹Maven:https://segmentfault.com/a/1190000021609439
+
+	2.packaging設置:
+		pom是maven依賴文件
+		jar是java普通項目打包
+		war是java web項目打包
+	
+	3.自動生成web.xml檔案
+      在建立的專案上右鍵：--> Java EE Tools --> Generate Deployment Descriptor Stub
+	  
+	4.
+		

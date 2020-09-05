@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Sep 05 15:09:22 CST 2020
+javax.websocket-api-1.1-sources.jar>alimaven=
+javax.websocket-api-1.1.jar>alimaven=
+javax.websocket-api-1.1.pom>alimaven=

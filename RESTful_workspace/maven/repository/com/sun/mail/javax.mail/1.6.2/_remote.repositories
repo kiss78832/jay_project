@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Sep 05 15:06:23 CST 2020
+javax.mail-1.6.2.jar>alimaven=
+javax.mail-1.6.2.pom>alimaven=
+javax.mail-1.6.2-sources.jar>alimaven=
