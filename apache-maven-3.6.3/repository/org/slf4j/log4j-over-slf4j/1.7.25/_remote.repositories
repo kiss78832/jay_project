@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Oct 09 11:39:30 CST 2020
+log4j-over-slf4j-1.7.25.jar>alimaven=
+log4j-over-slf4j-1.7.25.pom>alimaven=
+log4j-over-slf4j-1.7.25-sources.jar>alimaven=

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020/9/13 ?U?? 02:51:55 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping package="main.java.com.application.model">
+    <class name="application" table="APPLICATION" discriminator-value="APPLICATION">
+        <id name="groupId" type="java.lang.String">
+            <column name="GROUP_ID" />
+            <generator class="native" />
+        </id>
+        
+        <discriminator column="TYPE" type="string"></discriminator>
+        
+        <property name="appNum" type="java.lang.String">
+            <column name="APP_NUM" />
+        </property>
+        <property name="memberId" type="java.lang.String">
+            <column name="MEMBER_ID" />
+        </property>
+        <property name="routeId" type="java.lang.String">
+            <column name="ROUTE_ID" />
+        </property>
+        <property name="egcContact" type="java.lang.String">
+            <column name="EGC_CONTACT" />
+        </property>
+        <property name="egcPhone" type="java.lang.String">
+            <column name="EGC_PHONE" />
+        </property>
+        <property name="satellite" type="java.lang.String">
+            <column name="SATELLITE" />
+        </property>
+        <property name="radio" type="java.lang.String">
+            <column name="RADIO" />
+        </property>
+        <property name="appStatus" type="java.lang.Integer">
+            <column name="APP_STATUS" />
+        </property>
+        <property name="appTime" type="java.sql.Timestamp">
+            <column name="APP_TIME" />
+        </property>
+        <property name="appDays" type="java.lang.Integer">
+            <column name="APP_DAYS" />
+        </property>
+        <property name="firstDay" type="java.util.Date">
+            <column name="FIRST_DAY" />
+        </property>
+        <property name="dailybedProvided" type="java.lang.Integer">
+            <column name="DAILYBED_PROVIDED" />
+        </property>
+        <property name="mealProvided" type="java.lang.Integer">
+            <column name="MEAL_PROVIDED" />
+        </property>
+        <property name="locations" type="java.lang.String">
+            <column name="LOCATIONS" />
+        </property>
+    </class>
+</hibernate-mapping>

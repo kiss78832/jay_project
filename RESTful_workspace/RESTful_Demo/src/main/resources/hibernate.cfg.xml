@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+		
+		
+<hibernate-configuration>
+    <session-factory>
+		<!--	配置連接資料庫的基本參數 	-->
+    	<property name="connection.username">Hibernate</property>
+    	<property name="connection.password">zzz30163</property>
+    	<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    	<property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+    	
+    	<!--	配置連接資料庫的基本參數 	-->
+    	<!--	hibernate所使用的數據庫方言 	-->
+    	<property name="dialect">org.hibernate.dialect.Oracle9Dialect</property>
+    	
+    	<!--	是否在console印出SQL 	-->
+    	<property name="show_sql">true</property>
+    	
+    	<!--	是否對SQL進行格式化 	-->
+    	<property name="format_sql">true</property>
+    	
+    	<!--	設置Hibernate的事務(交易)隔離級別(ex:髒讀、重複讀...) 這邊是為了測試refresh()	-->
+    	<property name="connection.isloation">2</property>
+    	
+    	<!--	指定自動生成數據表的策略 	-->
+		<!--hbm2ddl.auto 取值
+				create -> 會重新生成資料表(table)，會把之前的紀錄都刪光，只會留下當前操作的數據。
+				update -> 不會刪除往後的紀錄，直接在後面新增一筆。若有新增欄位(*.hbm.xml)也可以，會自動把過往資料的新欄位都塞null。(最常用)
+				creat-drop-> 操作完直接連同資料表(table)一起刪除。
+				validate -> 跟update差別就是validate會驗證欄位是否符合，不符合就會報錯。
+		-->
+    	<property name="hbm2ddl.auto">update</property>
+    	
+    	<!--	刪除對象後，使OID設為null 	-->
+    	<property name="use_identifier_rollback">true</property>
+    	
+    	<!--	設置C3P0資料庫連線 	-->
+    	<property name="hibernate.c3p0.max_size">10</property>
+    	<property name="hibernate.c3p0.min_size">5</property>
+    	<property name="c3p0.acquire_increment">2</property> <!--	一次向資料庫拿多少連線，而不是一條一條拿 	-->
+    	<property name="c3p0.idle_test_period">2000</property>  <!--	檢測連線狀況是否被銷毀 >= timeout 就會銷毀	-->
+    	<property name="c3p0.timeout">2000</property> 
+    	<property name="c3p0.max_statements">10</property>
+    	
+    	<!--	針對Oracle是有效的	-->
+    	<!--	設置JDBC的Statment讀取數據的時候每次從資料庫中取出的紀錄條數 ，實質是調用Statement.seFetchSize()方法。[就是假設1萬條資料，可設置一次可能XX條資料，可以不要一次一萬條，好處是節省內存消耗，預設是10，建議100比較合適]	-->
+    	<property name="hibernate.jdbc.fetch_size">100</property>
+    	<!--	設定對資料庫進行批次刪除，批次更新和批次插入的時候大小設定。[設置緩衝區的意思，一般設置30] 	--> 
+    	<property name="jdbc.batch_size">30</property>
+    	
+    	<!-- 開啟二級緩存 -->
+    	<property name="cache.use_second_level_cache">true</property>
+    	<!-- 配置使用的二級緩存的產品 -->
+ 		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property> 
+ 			
+    	<!-- 配置啟用查詢緩存(HQL、QBC) -->
+    	<property name="cache.use_query_cache">true</property>
+    	
+    	 <!-- 配置管理Session的方式) -->
+    	<property name="current_session_context_class">thread</property>
+    	
+    	<!--	指定關聯的.hbm.xml文件 	-->
+    	<mapping resource="com/application/model/ApplicationDTO.hbm.xml"/>
+<!--     	<mapping resource="com/jay/hibernate/helloworld/Worker.hbm.xml"/> -->
+
+    			<!-- 就算在不同pakeage有相同的*.hbm.xml就會相衝，所以測試記得註解  -->
+<!--     	<mapping resource="com/jay/hibernate/manyToOne/Customer.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/hibernate/manyToOne/Order.hbm.xml"/> -->
+    	
+    	
+<!--     	<mapping resource="com/jay/HQL/entities/Department.hbm.xml"/> -->
+<!--     	<mapping resource="com/jay/HQL/entities/Employee.hbm.xml"/> -->
+    	
+    	<!--	二級緩存(一定要擺後面，不然會報錯)，也可以到各自*.hbm.xml設置<cache usage="read-write"/> 	-->
+    	<class-cache usage="read-write" class="com.application.model"/>
+<!--     	<class-cache usage="read-write" class="com.jay.HQL.entities.Department"/> -->
+<!--     	<collection-cache usage="read-write" collection="com.jay.HQL.entities.Department.emps"/>     -->
+    </session-factory>
+</hibernate-configuration>

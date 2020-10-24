@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sun Sep 13 16:10:18 CST 2020
+javassist-3.18.1-GA.jar>alimaven=
+javassist-3.18.1-GA.pom>alimaven=
+javassist-3.18.1-GA-sources.jar>alimaven=
