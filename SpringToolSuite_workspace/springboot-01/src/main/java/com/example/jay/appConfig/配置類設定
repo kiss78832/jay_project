@@ -1,0 +1,72 @@
+一、若想要引入Spring的配置類[beans.xml]
+    1.可以在主配置類(@SpringBootApplication)上加入@ImportResource(locations = {"classpath:beans.xml"})
+    2.在SpringBoot內不會去自動測beans.xml，必需去主配置類下@ImportResource。
+   ★3.SpringBoot建議新增一個配置類別，@Configuration，可參考appConfig package。
+
+二、配置文件暫位符
+    1.RandomValuePropertySource:配置文件可以使用隨機數
+    2.請參考person.properties
+    3.${random.value}、${random.int}、${random.int(10)}、${random.int[1024,65536]}，以這種寫法取得亂數。
+    4.可以使用默認值，ex:${person.test:默認值}，若Person物件的test取不到值或是沒有這個變數，就會給默認值。
+    
+三、Profile[可以動態調用其他配置文件]
+    Properties 配置文件
+    1.編寫配置文件時，文件名稱可以用該格式辨認  → application-{profile}.properties / yml
+        ex:application-dev.properties
+    2.調用方式就是在配置文件上新增新的配置文件名稱
+        ex:spring.profiles.sctive=dev → 這樣就會去找{profile}內是dev的配置文件。
+
+    YAML 配置文件 (注意:當有application.properties有設定時，會優先讀取，測試前需把application.properties設定註解)
+    1.*.yml文件
+        server:
+            port: 8081 //預設port
+          spring:
+            profiles:
+                active: prod //啟動[profiles: prod的設置]
+    2.可以在yml文件配置多組設定
+        第一組
+        server:
+            port: 8083
+        spring:
+            profiles: dev
+    
+        第二組
+        server:
+            port: 8084
+        spring:
+            profiles: prod
+            
+    3.啟動方式也可以到Springboot主啟動器[Springboot01Application]修改Configuration
+        a.右鍵 -> properties -> Run/Debug -> 選取springboot選擇修改 -> 裡面有profiles設定可以選擇[dev/prod]
+        b.Run -> RunConfiguration -> porgram arguments新增參數 -> [--spring.profiles.active=dev]
+        c.Run -> RunConfiguration -> VM options新增虛擬機參數 -> [-Dspring.profiles.active=dev]
+        
+    4.application在不同層級下會有優先級( a → d )
+        a.file:./config/→ [/springboot-01/config/application.properties] //在springboot-01底下新增config資料夾
+        b.file:./ → [/springboot-01/application.properties]
+        c.classpath:/config/ → [/springboot-01/src/main/resources/config/application.properties] //在resourse底下創建config資料夾
+        d.classpath:/ → [/springboot-01/src/main/resources/application.properties]
+
+四、外部配置加載順序
+    1.命令列參數 [CMD]
+        ex: java -jar springboot-01-0.0.1-SNAPSHOT.jar + [--server.port=8087]
+        ex: 命令列多配置，可以空白後繼續配置，java -jar springboot-01-0.0.1-SNAPSHOT.jar --server.port=8087 --server.contest-path=/abc[這句是指網址要多/abc才可以進入]
+    2.來自java:comp/env的JNDI屬性
+    3.java系統屬性[System.getProperties()]
+    4.操作系統環境變數
+    5.RandomValuePropertySource配置random.*屬性質
+    
+    **優先加載帶profile，都是由外部到內部**
+    6.jar包外部的application-{profile}.properties或application.yml(帶spring.profile)配置文件
+    7.jar包內部的application-{profile}.properties或application.yml(帶spring.profile)配置文件
+    8.jar包外部的application-.properties或application.yml(不帶spring.profile)配置文件
+    9.jar包內部的application-.properties或application.yml(不帶spring.profile)配置文件
+    
+    10.@Configuration註解類上的@PropertySource
+    11.通過SpringApplication.setDefaultProperties指定的默認屬性
+    .
+    .
+    .
+    等等。
+
+    

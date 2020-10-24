@@ -1,0 +1,33 @@
+#person:
+#    lastName: zhangsan
+#    age: 18
+#    boos: false
+#    birth: 2020/10/10
+#    maps: {k1: v1,k2: v2}
+#    lists:
+#        - lisi
+#        - zhaoliu
+#    dog: 
+#      name: 小狗
+#      age: 12
+
+#Profile 配置方式
+server:
+  port: 8081
+spring:
+  profiles:
+    active: prod
+    
+---
+
+server:
+  port: 8083
+spring:
+  profiles: dev
+  
+---
+
+server:
+  port: 8084
+spring:
+  profiles: prod

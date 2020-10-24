@@ -1,0 +1,14 @@
+[java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test]
+    錯誤原因:因為找不到SpringBoot啟動類。(上頭標記@SpringBootApplication)
+    處理方式:
+        1.可能缺少@SpringBootApplication的啟動類別，必須去新增一個class
+        2.src/main/java 跟 src/test/java 包名需要相同才找的到，像src.main.java.jay 跟 src.main.test.demo 兩個對不上。
+
+[org.junit.runners.model.InvalidTestClassError: Invalid test class 'com.example.jay.Springboot01ApplicationTests':1. No runnable methods]
+    錯誤原因:若無法使用@RunWith(SpringRunner.class)，是因為版本關係，需要到pom檔註解<exclusions></exclusions>。
+            有可能是因為註解掉<exclusions>導致import test api 類別不同，修改一下就可以了。
+    處理方式:
+        1.把 import org.junit.jupiter.api.Test 修改 import org.junit.Test;
+        
+[]
+        

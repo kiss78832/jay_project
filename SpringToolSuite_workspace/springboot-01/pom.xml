@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+<!-- 
+    父類別
+        spring-boot-starter-parent 裡面又包一個 spring-boot-dependencies
+        spring-boot-dependencies 又稱SpringBoot 版本管理中心
+        最底層有個 <properties> 底下已經import各種類的jar包，所以才能這麼方便。
+ --> 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.3.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>com.example</groupId>
+	<artifactId>springboot-01</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>springboot-01</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+    <!--
+        導入依賴 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        spring-boot-starter:又稱Spring boot 場景啟動器
+            底層依賴Tomcat、jackson、spring-web、spring-webmvc、websocket等等多種功能
+            幫忙導入web模組需要依賴的東西。
+            
+        Springboot 將所有功能場景都取出來，做一個一個的starts(啟動器)，只需要再項目裡面引用這些starts相館場景
+        的所有依賴都會導出來，要用什麼功能就導入什麼場景啟動器。
+     -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.junit.vintage</groupId> -->
+<!-- 					<artifactId>junit-vintage-engine</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+		</dependency>
+		
+		<!-- 導入配置文件處理器，配置文件進行綁定就會走提示 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+<!-- 這個元件可以將應用包成可執行jar包 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

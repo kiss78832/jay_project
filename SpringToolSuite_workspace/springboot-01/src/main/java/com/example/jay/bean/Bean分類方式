@@ -1,0 +1,28 @@
+SpringMVC注入Bean的方式:
+    1.在xml內寫上   <bean class="Person">
+                        <property name="LastName" value="[字串/${key}(從環境變數、配置文件中取值)/#{SpEL}]"></property>
+                   </bean>
+
+SpringBoot注入Bean的方式:
+    1.讀取配置文件(*.properties / *.yml)使用@ConfigurationProperties(prefix = "person")
+        a.默認是讀取applicastion.properties or yml
+        b.若要指定properties，請加上註解 @PropertySource(value = {"classpath:person.properties"})，value為陣列可指定多個配置文件檔。
+    2.在每個變數加上@Value (Spring4中新增的寫法。)
+
+
+@ConfigurationProperties  vs  @Value 差異 (兩者不可共存，若共存會優先讀取@Value的值)
+                            @ConfigurationProperties                @Value
+                  [功能]      可批次注入配置文件的屬性            必須要一個一個變數指定
+                  [鬆散綁定]         支持                             不支持
+                  [SpEL]           不支持                             支持
+                  [JSR303數據校驗]   支持                             不支持
+                  [複雜封類型]       支持                             不支持
+            ◎鬆散綁定:你可以用駝峰式寫法(personXxx)、person-xx寫法、person_xx寫法，都是合理的。
+            ◎SpEL表達式:可使用多種運算方式，Ex:三元運算、訪問properties.lists.maps、建構Array...等等18種方式。
+            ◎JSR303數據校驗:可以驗證每個變數的值，Ex:@Null[必須為空值]、@Size(max,min)[元素大小必須在指定範圍內]、@Email[必須是mail格式]...等等13種註解方式。
+            ◎複雜封類型:Map型態
+            ◎兩者該如何選擇:
+                共通點:兩者都可以讀取配置文件*.yml和*.properties檔
+                @Value:如果我們只是單純在某業務邏輯需要獲取配置文件中的某項值，就可以使用 @Value。
+                @ConfigurationProperties:如果說我們專門寫一個JavaBean來和配置文件映射，我們就直接使用@ConfigurationProperties。
+
