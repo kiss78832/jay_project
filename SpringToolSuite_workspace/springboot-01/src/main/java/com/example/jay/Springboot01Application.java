@@ -2,7 +2,6 @@ package com.example.jay;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ImportResource;
 
 //@ImportResource(locations = {"classpath:beans.xml"}) //StringBoot建議新建一個配置類，請參考MyAppConfig
 //@SpringBootApplication 來標記一個主程式，說明這是一個Spring Boot應用
@@ -15,7 +14,9 @@ public class Springboot01Application {
         //來啟動Springboot應用。
     	//Spring應用啟動
         SpringApplication.run(Springboot01Application.class, args); //傳入的class一定要@SpringBootApplication
-        
+
+        System.out.println("test= "+Class.class.getResource("SLF4j.jpg"));
+
         /**
        // @SpringBootApplication 內部
 	        @Target(ElementType.TYPE)
@@ -26,12 +27,12 @@ public class Springboot01Application {
 	        @EnableAutoConfiguration(開啟自動配置功能) 以前我們需要配置的東西Springboot都幫我們自動配置。
 	        	1.底層有-> @AutoConfigurationPackage(自動配置包，Spring底層註解)
 	        	2.★會把主配置類所在包類底下都掃描進去 (也就是com.example.jay這個包底下全部都會掃描，demo那包就會掃不到)
-	        	3.底層有-> @Import(AutoConfigurationImportSelector.class) 
+	        	3.底層有-> @Import(AutoConfigurationImportSelector.class)
 	        	4.AutoConfigurationImportSelector.class 這裡面有import大約90多個類別功能，就減少手動去注入元件
 	        @ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
 	        @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })
-	        
-	        
+
+
         */
     }
 }
