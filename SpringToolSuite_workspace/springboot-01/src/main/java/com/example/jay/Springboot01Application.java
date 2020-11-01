@@ -15,7 +15,6 @@ public class Springboot01Application {
     	//Spring應用啟動
         SpringApplication.run(Springboot01Application.class, args); //傳入的class一定要@SpringBootApplication
 
-        System.out.println("test= "+Class.class.getResource("SLF4j.jpg"));
 
         /**
        // @SpringBootApplication 內部
