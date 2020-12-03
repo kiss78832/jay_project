@@ -82,3 +82,20 @@
 
 >* **6. 取得後台設定資料 :** 
 >![thymeleaf_foreach](../resources/static/note/thymeleaf_foreach.png)  
+
+**四、新增員工**
+>**※ 流程:**  
+>![addEmp](../resources/static/note/addEmp.png)  
+
+>**※ 日期格式設定:**  
+>![addEmp_date](../resources/static/note/addEmp_date.png)  
+
+**五、修改員工**
+>![modifyEmp](../resources/static/note/modifyEmp.png)  
+>**※ WebMvcAutoConfiguration 配置 hiddenHttpMethodFilter 源碼 : **  
+>![HiddenHttpMethodFilter](../resources/static/note/HiddenHttpMethodFilter.png)  
+
+**六、刪除員工**
+>![deleteEmp](../resources/static/note/deleteEmp.png)  
+
+## 錯誤機制處理

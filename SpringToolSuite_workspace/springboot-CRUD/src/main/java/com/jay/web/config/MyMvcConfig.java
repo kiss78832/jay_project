@@ -26,6 +26,7 @@ public class MyMvcConfig implements WebMvcConfigurer{
 		//以前SpringMVC 要特別排除 *.css *.js ，但springBoot 針對靜態資源已經做好管理。
 		//addPathPatterns -> 需要攔截哪些請求
 		//excludePathPatterns -> 排除哪些請求。(如:首頁)
+
 		registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
 		.excludePathPatterns("/index.html","/","/user/login");
 	}

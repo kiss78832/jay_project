@@ -24,8 +24,11 @@ public class Employee {
 		this.birth = birth;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", lastName=" + lastName + ", email=" + email + ", gender=" + gender
+				+ ", department=" + department + ", birth=" + birth + "]";
+	}
 
 	public Date getBirth() {
 		return birth;
