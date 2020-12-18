@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.jay.web.component.LoginHandlerInterceptor;
 import com.jay.web.component.MyLocaleResolver;
 
 @Configuration
@@ -27,8 +26,11 @@ public class MyMvcConfig implements WebMvcConfigurer{
 		//addPathPatterns -> 需要攔截哪些請求
 		//excludePathPatterns -> 排除哪些請求。(如:首頁)
 
-		registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-		.excludePathPatterns("/index.html","/","/user/login");
+		/*
+		 * 44章教學 暫時註解
+		 * */
+//		registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+//		.excludePathPatterns("/index.html","/","/user/login");
 	}
 
 	//把 MyLocaleResolver 交給 Spring 管理
@@ -36,5 +38,4 @@ public class MyMvcConfig implements WebMvcConfigurer{
 	public LocaleResolver localeResolver() {
 		return new MyLocaleResolver();
 	}
-
 }

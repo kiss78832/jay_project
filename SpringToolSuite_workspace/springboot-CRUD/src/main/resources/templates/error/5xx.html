@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div>
+	    <h1 style="color:red">5XX 錯誤頁面</h1>
+	    <h3>狀態碼 : [[${status}]]</h3>
+	    <h3>error 錯誤類型 : [[${error}]]</h3>
+	    <h3>Exception錯誤物件 : [[${exception}]]</h3>
+	    <h3>Message 錯誤訊息 : [[${message}]]</h3>
+	    <h3>Path 錯誤網址 : [[${path}]]</h3>
+	    <h3>Timestamp 時間戳記 : [[${timestamp}]]</h3>
+	    
+	    <h2 style="color:blue">MyExceptionHandler 數據 ▼</h2>
+	    <h3>code : [[${handlerMap.code}]]</h3>
+	    <h3>message : [[${handlerMap.message}]]</h3>
+    </div>
+</body>
+</html>

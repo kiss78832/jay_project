@@ -81,6 +81,7 @@
 >![thymeleaf_parameter](../resources/static/note/thymeleaf_parameter.png)  
 
 >* **6. 取得後台設定資料 :** 
+>
 >![thymeleaf_foreach](../resources/static/note/thymeleaf_foreach.png)  
 
 **四、新增員工**
@@ -99,3 +100,36 @@
 >![deleteEmp](../resources/static/note/deleteEmp.png)  
 
 ## 錯誤機制處理
+
+**一、SpringBoot 默認的錯誤處理機制**
+
+>**※ 默認效果**
+>>**Ⅰ.返回一個默認錯誤頁面**  
+>>
+>![NotFound_404](../resources/static/note/NotFound_404.png)  
+
+>>**Ⅱ.自訂錯誤頁面步驟與原理 ( 瀏覽器發出請求範例 )**  
+>>>** ① ErrorPageCustomizer : 系統出現 4XX 或者 5XX 之類的錯誤，就會生效並到請求 【 /error 】，觸發BasicErrorController。**  
+>>>![ErrorPageCustomizer](../resources/static/note/ErrorPageCustomizer.png)  
+
+> ***
+
+>>>**② BasicErrorController : 是專門處理 【 /error 】，這邊會根據【瀏覽器】【客戶端】做不同處理。**  
+>>>![BasicErrorController](../resources/static/note/BasicErrorController.png)  
+
+>>> ***
+
+>>>**③ DefaultErrorViewResolver : BasicErrorController 處理【 /error 】需經由DefaultErrorViewResolver 返回 ModelAndView 。**  
+>>>![DefaultErrorViewResolver](../resources/static/note/DefaultErrorViewResolver.png)  
+
+>>> ***
+
+>>>**③ DefaultErrorAttributes : 負責前台頁面數據包裝成物件傳遞到後台，扮演 ModelAndView 的 Model。**  
+>>>![DefaultErrorAttributes](../resources/static/note/DefaultErrorAttributes.png)  
+
+>>> ***
+
+
+>>**Ⅲ.自訂錯誤頁面步驟與原理 ( 客戶端發出請求範例 )**  
+>>>![customizeAttributes](../resources/static/note/customizeGetAttributes.png)  
+
