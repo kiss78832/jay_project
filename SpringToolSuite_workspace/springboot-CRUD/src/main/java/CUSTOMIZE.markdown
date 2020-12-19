@@ -71,7 +71,7 @@
 >**參考網址3 : https://www.mdeditor.tw/pl/pRPS/zh-tw**  
 
 
-## 使用外置 Servlet 容器
+## 使用外部 Servlet 容器
 
 **一、嵌入式比較外部 Servlet 容器** 
 >**※ 嵌入式Servlet容器 : jar 包**
@@ -84,3 +84,20 @@
 >**※ 外部 Servlet 容器 : 外面安裝Tomcat，應用war 包方式打包 **
 >>
 >>![outsideTomcat](../resources/static/note/outsideTomcat.png)
+
+## 使用外部 Servlet 容器原理
+
+**一、【Jar包】 比較 【War包】 啟動服務器順序** 
+>>>
+    ※ 【Jar包】 : 先執行 SpringBoot 主程式的 run() 方法 → 啟動 IOC 容器 → 創建嵌入式 Servlet 容器。 
+    ※ 【War包】 : 先執行 服務器(Tomcat) → 服務器啟動 SpringBoot應用【由 SpringBootServletInitializer】 → 啟動 IOC 容器 。
+
+**二、servlet 3.0 規範** 
+
+>>>
+    ① 服務器啟動會"創建"當前 Web 應用裡面每一個 Jar包 裡面的 ServletContainerInitialier.class。
+    ② ServletContainerInitialier 位置放在 spring-web 下的 META-INF/services 資料夾下，有一個 javax.servlet.ServletContainerInitializer 文字檔。
+    ③ ServletContainerInitializer 介面由一個 SpringServletContainerInitializer 實作 。
+    ④ 還可以使用 @HandlesTypes，在應用啟動的時候下載我們感興趣的類別。
+>>>
+![SpringServletContainerInitializer](../resources/static/note/SpringServletContainerInitializer.png)
