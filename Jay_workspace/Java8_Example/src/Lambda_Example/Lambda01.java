@@ -2,7 +2,10 @@ package Lambda_Example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -144,5 +147,44 @@ public class Lambda01 {
 			}
 		}
 		return strList;
+	}
+	
+	@Test
+	public void test05() {
+		ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+		Spliterator<Integer> numbers1 = numbers.spliterator();
+
+		numbers1.tryAdvance(e -> System.out.println(e + "¡C")); // 1
+////
+//		numbers1.forEachRemaining( e -> System.out.println( e ) ); // 2 3 4 5 6
+
+		Spliterator<Integer> numbers2 = numbers1.trySplit();
+//
+		numbers1.forEachRemaining( e -> System.out.println( e +",") );      //4 5 6
+		numbers2.forEachRemaining( e -> System.out.println( e +"=") );      //1 2 3
+	}
+	
+	@Test
+	public void test06() {
+		Hashtable<String,Object> map = new Hashtable<>();
+		map.put("B","2");
+		map.put("A","1");
+		map.put("C","3");
+		map.put("1","3");
+		map.put("2","3");
+		map.put("7","3");
+		map.put("4","3");
+		map.put("6","3");
+		map.put("5","3");
+		map.put("3","3");
+		
+		
+		Iterator itr = map.
+		while (itr.hasNext()) {
+			System.out.println(itr.next());
+			
+		}
+		
+
 	}
 }
